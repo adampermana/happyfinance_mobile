@@ -3,6 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:happyfinance_mobile/presentation/app/resources/color_palette.dart';
+
+part 'presentation/widget/custom_flavors_banner.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
