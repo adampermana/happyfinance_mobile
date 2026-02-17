@@ -1,0 +1,30 @@
+import 'package:dartz/dartz.dart';
+import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
+import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
+
+part 'auth_repositories.dart';
+
+abstract class IAuthRepositories {
+  Future<Either<ServerFailures, LoginResponse>> postLogin({
+    required String usernameOrEmail,
+    required String password,
+    required String uuidDevice,
+    required String latitude,
+    required String longitude,
+    required String platform,
+    required String fcmToken,
+  });
+  // Future<Either<ServerFailures, RegisterResponse>> postRegister({
+  //   required String username,
+  //   required String email,
+  //   required String phone,
+  //   required String password,
+  //   required String latitude,
+  //   required String longitude,
+  //   required String uuidDevice,
+  //   required String platform,
+  //   required String fcmToken,
+  //   required String isRule,
+  //   required String country,
+  // });
+}
