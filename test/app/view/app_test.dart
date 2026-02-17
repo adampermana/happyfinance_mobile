@@ -2,8 +2,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:happyfinance_mobile/app/app.dart';
 import 'package:happyfinance_mobile/counter/counter.dart';
+import 'package:happyfinance_mobile/presentation/app/app.dart';
 
 void main() {
   group('App', () {
