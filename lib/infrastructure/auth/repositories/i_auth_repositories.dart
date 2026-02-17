@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:happyfinance_mobile/domains/auth/hive/auth_data_hive.dart';
 import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
+import 'package:happyfinance_mobile/infrastructure/auth/datasources/auth_local_datasource.dart';
+import 'package:happyfinance_mobile/infrastructure/auth/datasources/i_auth_remote_datasource.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
 
 part 'auth_repositories.dart';
