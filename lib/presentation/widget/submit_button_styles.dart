@@ -15,7 +15,7 @@ class SubmitButtonStylesWidget extends StatelessWidget {
     this.primaryColor,
     this.height, // New property for height
     this.width, // New property for width
-    this.radius = 4.0, // New property for button radius
+    this.radius = 12.0, // New property for button radius
     this.icon, // New property for custom icon
     this.useGradient = false, // New property to use gradient
     this.gradient,
@@ -91,7 +91,7 @@ class SubmitButtonStylesWidget extends StatelessWidget {
 
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? 36.0,
+      height: height ?? 56.0,
       child: useGradient
           ? Container(
               decoration: BoxDecoration(

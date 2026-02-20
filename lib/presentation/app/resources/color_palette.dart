@@ -6,41 +6,53 @@ import 'package:flutter/material.dart';
 const MaterialColor primaryMColor = ColorPalette.primarySwatch;
 
 class ColorPalette {
-  // === Primary / Red brand ===
+  // === Primary / Purple brand ===
 
   /// MaterialColor butuh INT ARGB, bukan Color.
-  static const int _primaryColorValue = 0xFFEF373E;
+  static const int _primaryColorValue = 0xFF4F46E5;
 
   /// Alias color utama (Color dari INT di atas).
   static const Color primaryColor = Color(_primaryColorValue);
 
-  /// Opsional alias: kRed = kRed500 biar mudah dipakai di mana-mana.
-  static const Color kRed = kRed500;
+  /// Alias: kPurple = kPurple600 (primary shade).
+  static const Color kPurple = kPurple600;
 
   /// Swatch untuk ThemeData(primarySwatch: ...)
   static const MaterialColor primarySwatch = MaterialColor(
     _primaryColorValue,
     <int, Color>{
-      50: kRed50,
-      100: kRed100,
-      200: kRed200,
-      300: kRed300,
-      400: kRed400,
-      500: kRed500, // jangan pakai `kRed` kalau belum didefinisikan
-      600: kRed600,
-      700: kRed700,
-      800: kRed800,
-      900: kRed900,
+      50: kPurple50,
+      100: kPurple100,
+      200: kPurple200,
+      300: kPurple300,
+      400: kPurple400,
+      500: kPurple500,
+      600: kPurple600,
+      700: kPurple700,
+      800: kPurple800,
+      900: kPurple900,
     },
   );
 
-  // === Reds 50–900 ===
+  // === Purples 50–900 (primary: 0xFF4F46E5) ===
+  static const Color kPurple50 = Color(0xFFEEEDFD);
+  static const Color kPurple100 = Color(0xFFD5D3FA);
+  static const Color kPurple200 = Color(0xFFB9B5F7);
+  static const Color kPurple300 = Color(0xFF9D97F3);
+  static const Color kPurple400 = Color(0xFF7B74EE);
+  static const Color kPurple500 = Color(0xFF6259EA);
+  static const Color kPurple600 = Color(0xFF4F46E5); // base / primary
+  static const Color kPurple700 = Color(0xFF3D35C2);
+  static const Color kPurple800 = Color(0xFF2D27A0);
+  static const Color kPurple900 = Color(0xFF1E1A7E);
+
+  // === Reds (kept for other usages) ===
   static const Color kRed50 = Color(0xFFF8BABC);
   static const Color kRed100 = Color(0xFFF8A5A8);
   static const Color kRed200 = Color(0xFFF5878B);
   static const Color kRed300 = Color(0xFFF36F74);
   static const Color kRed400 = Color(0xFFF15359);
-  static const Color kRed500 = Color(0xFFEF373E); // base
+  static const Color kRed500 = Color(0xFFEF373E);
   static const Color kRed600 = Color(0xFFED1C24);
   static const Color kRed700 = Color(0xFFDF121A);
   static const Color kRed800 = Color(0xFFC91017);
@@ -69,10 +81,24 @@ class ColorPalette {
   static const Color kWhite800 = Color(0xFF424242);
   static const Color kWhite900 = Color(0xFF212121);
 
-  static const Color kGray = Color(0xFFE8E8E8);
-  static const Color kGray100 = Color(0xFFD9D9D9);
+  // === Greys 50–900 (Tailwind-style) ===
+  static const Color kGrey50 = Color(0xFFF9FAFB);
+  static const Color kGrey100 = Color(0xFFF3F4F6);
+  static const Color kGrey200 = Color(0xFFE5E7EB);
+  static const Color kGrey300 = Color(0xFFD1D5DB);
+  static const Color kGrey400 = Color(0xFF9CA3AF);
+  static const Color kGrey500 = Color(0xFF6B7280);
+  static const Color kGrey600 = Color(0xFF4B5563);
+  static const Color kGrey700 = Color(0xFF374151);
+  static const Color kGrey800 = Color(0xFF1F2937);
+  static const Color kGrey900 = Color(0xFF111827);
+
+  /// Legacy aliases – kept for backward compatibility
+  static const Color kGray = kGrey200;
+  static const Color kGray100 = kGrey300;
   static const Color kGray200 = Color(0xFFC6CDD1);
-  static const Color kGrayHintText = Color(0xFF5E5E5E);
+  static const Color kGrayHintText = kGrey500;
+
   static const Color kBlack = Colors.black;
   static const Color kOrange = Color(0xFFED6E33);
   static const Color kOrange100 = Color(0xFFFFFAF0);
@@ -85,7 +111,7 @@ class ColorPalette {
   static final Color kBanerBlue = Colors.blue.withValues(alpha: 0.6);
 
   // Backgrounds
-  static const Color scaffoldBackground = Colors.white;
+  static const Color scaffoldBackground = Color(0xFFF9FAFB);
   static const Color scaffoldBackgroundAppBar = Colors.white;
 
   static const LinearGradient kGradient = LinearGradient(
