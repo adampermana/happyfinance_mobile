@@ -95,7 +95,7 @@ class RegisterScreen extends HookWidget {
                 CustomEmailFormField(
                   controller: email,
                   hintText: 'Email',
-                  labelText: null,
+                  // labelText: null,
                   // showSuggestions: true,
                   fillColor: Colors.white,
                   useBorder: true,
@@ -115,7 +115,7 @@ class RegisterScreen extends HookWidget {
                 CustomPhoneFormField(
                   controller: phone,
                   hintText: 'Nomor Telepon',
-                  labelText: null,
+                  // labelText: null,
                   fillColor: Colors.white,
                   useBorder: true,
                   colorBorder: borderColor,
@@ -134,7 +134,7 @@ class RegisterScreen extends HookWidget {
                 CustomPasswordFormField(
                   controller: password,
                   hintText: 'Kata Sandi',
-                  labelText: null,
+                  // labelText: null,
                   fillColor: Colors.white,
                   useBorder: true,
                   colorBorder: borderColor,

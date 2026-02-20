@@ -24,6 +24,11 @@ dependencies:
   flutter_hooks: ^0.21.3+1
   flutter_localizations:
     sdk: flutter
+  flutter_onboarding_slider:
+    git:
+      url: https://github.com/adampermana/flutter_onboarding_slider.git
+      path: packages/flutter_onboarding_slider
+      ref: refactor-ui
   flutter_svg: ^2.2.3
   freezed_annotation: ^3.1.0
   get_it: ^9.2.0

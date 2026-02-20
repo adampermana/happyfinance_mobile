@@ -1,0 +1,28 @@
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:happyfinance_mobile/infrastructure/core/repositories/i_core_repository.dart';
+
+part 'core_state.dart';
+part 'core_cubit.freezed.dart';
+
+class CoreCubit extends Cubit<CoreState> {
+  CoreCubit(this._coreRepository) : super(CoreState.initial());
+
+  final ICoreRepository _coreRepository;
+
+  Future<void> fetchOnBoarding() async {
+    final result = await _coreRepository.fetchOnBoarding();
+    return emit(
+      state.copyWith(
+        isBoarding: result,
+      ),
+    );
+  }
+
+  Future<void> saveBoardingScreen() async {
+    emit(state.copyWith(isSubmmitBoard: false));
+
+    await _coreRepository.saveOnBoarding(isBoarding: true);
+    emit(state.copyWith(isBoarding: true, isSubmmitBoard: true));
+  }
+}

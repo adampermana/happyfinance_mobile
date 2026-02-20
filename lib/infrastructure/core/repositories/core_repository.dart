@@ -2,7 +2,7 @@ part of 'i_core_repository.dart';
 
 class CoreRepositories implements ICoreRepository {
   const CoreRepositories(this._localDatasource);
-  final ILocalDatasource _localDatasource;
+  final ICoreLocalDatasource _localDatasource;
 
   @override
   Future<void> saveLocale(Locale locale) => _localDatasource.saveLocale(locale);
@@ -12,4 +12,11 @@ class CoreRepositories implements ICoreRepository {
 
   @override
   Locale? getLocale() => _localDatasource.locale;
+
+  @override
+  Future<void> saveOnBoarding({required bool isBoarding}) =>
+      _localDatasource.saveOnBoarding(isBoarding: isBoarding);
+
+  @override
+  Future<bool> fetchOnBoarding() => _localDatasource.fetchOnBoarding();
 }

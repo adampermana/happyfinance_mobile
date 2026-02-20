@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:happyfinance_mobile/presentation/routers/route_path.dart';
-import 'package:happyfinance_mobile/presentation/screens/auth/login_screen.dart';
 import 'package:happyfinance_mobile/presentation/screens/auth/register_screen.dart';
 
 // final parentNavigatorKey = GlobalKey<NavigatorState>();
