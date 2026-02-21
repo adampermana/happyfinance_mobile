@@ -8,6 +8,8 @@ import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
 part 'auth_repositories.dart';
 
 abstract class IAuthRepositories {
+  Future<AuthDataHive?> fetchDataLogin();
+
   Future<Either<ServerFailures, LoginResponse>> postLogin({
     required String usernameOrEmail,
     required String password,

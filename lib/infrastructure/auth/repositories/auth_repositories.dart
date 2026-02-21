@@ -7,6 +7,10 @@ class AuthRepositories implements IAuthRepositories {
   final IAuthRemoteDatasource _remoteDatasource;
 
   @override
+  Future<AuthDataHive?> fetchDataLogin() =>
+      Future.value(_localDatasource.authDataHive);
+
+  @override
   Future<Either<ServerFailures, LoginResponse>> postLogin({
     required String usernameOrEmail,
     required String password,

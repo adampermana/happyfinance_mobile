@@ -73,7 +73,7 @@ class AppTheme {
       shadowColor: base.shadowColor,
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith<Color?>((
-          Set<WidgetState> states,
+          states,
         ) {
           if (states.contains(WidgetState.disabled)) {
             return null;
@@ -84,7 +84,7 @@ class AppTheme {
           return null;
         }),
         trackColor: WidgetStateProperty.resolveWith<Color?>((
-          Set<WidgetState> states,
+          states,
         ) {
           if (states.contains(WidgetState.disabled)) {
             return null;
@@ -97,7 +97,7 @@ class AppTheme {
       ),
       radioTheme: RadioThemeData(
         fillColor: WidgetStateProperty.resolveWith<Color?>((
-          Set<WidgetState> states,
+          states,
         ) {
           if (states.contains(WidgetState.disabled)) {
             return null;

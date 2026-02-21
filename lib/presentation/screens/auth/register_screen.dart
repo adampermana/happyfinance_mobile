@@ -201,7 +201,7 @@ class RegisterScreen extends HookWidget {
                   spacing: 4,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Sudah punya akun?',
                       style: TextStyle(
                         color: ColorPalette.kGrey500,
@@ -225,7 +225,7 @@ class RegisterScreen extends HookWidget {
                 const SizedBox(height: 16),
 
                 // Security note
-                Row(
+                const Row(
                   spacing: 6,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

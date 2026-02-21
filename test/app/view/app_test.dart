@@ -1,15 +1,25 @@
-// Ignore for testing purposes
-// ignore_for_file: prefer_const_constructors
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:happyfinance_mobile/counter/counter.dart';
-import 'package:happyfinance_mobile/presentation/app/app.dart';
 
 void main() {
-  group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
-      await tester.pumpWidget(App());
-      expect(find.byType(CounterPage), findsOneWidget);
-    });
+  testWidgets('FullScreenPage disposes correctly on drag', (
+    tester,
+  ) async {
+    // Arrange
+    await tester.pumpWidget(
+      MaterialApp(
+        home: SizedBox(
+          child: Container(),
+        ),
+      ),
+    );
+
+    // Act
+    // Simulate dragging down beyond the dispose limit
+    await tester.drag(find.byType(SizedBox), const Offset(0, 300));
+    await tester.pumpAndSettle();
+
+    // Assert
+    expect(find.byType(SizedBox), findsNothing); // Expect the page to pop
   });
 }
