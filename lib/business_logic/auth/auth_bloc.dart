@@ -33,16 +33,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
 
-    // Get device information - sangat mudah sekarang!
-    // final device = await _deviceSources.deviceInfo();
-
     final result = await _authRepositories.postLogin(
-      usernameOrEmail: event.usernameOrEmail,
+      email: event.email,
       password: event.password,
       uuidDevice: '211212d',
-      latitude: event.latitude.toString(),
-      longitude: event.longitude.toString(),
-      platform: 'android',
+      deviceType: event.deviceType,
       fcmToken: event.fcmToken,
     );
 

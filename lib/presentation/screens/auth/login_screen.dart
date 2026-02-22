@@ -6,11 +6,13 @@ import 'package:happyfinance_mobile/business_logic/auth/auth_account/auth_accoun
 import 'package:happyfinance_mobile/business_logic/auth/auth_bloc.dart';
 import 'package:happyfinance_mobile/injector.dart';
 import 'package:happyfinance_mobile/presentation/app/resources/color_palette.dart';
+import 'package:happyfinance_mobile/presentation/enums/enum_widget.dart';
 import 'package:happyfinance_mobile/presentation/routers/route_path.dart';
 import 'package:happyfinance_mobile/presentation/widget/cache_images.dart';
 import 'package:happyfinance_mobile/presentation/widget/custom_snackbars.dart';
 import 'package:happyfinance_mobile/presentation/widget/custom_textfield.dart';
 import 'package:happyfinance_mobile/presentation/widget/loading_screen.dart';
+import 'package:happyfinance_mobile/presentation/widget/submit_button_styles.dart';
 
 class LoginScreen extends HookWidget {
   const LoginScreen({super.key});
@@ -99,7 +101,8 @@ class LoginScreen extends HookWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Langkah cerdas mengelola keuangan\nuntuk masa depan yang lebih bahagia.',
+                      'Langkah cerdas mengelola keuangan'
+                      '\nuntuk masa depan yang lebih bahagia.',
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: ColorPalette.kGrey500,
@@ -178,23 +181,25 @@ class LoginScreen extends HookWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    SizedBox(
-                      width: double.infinity,
+                    SubmitButtonStylesWidget(
+                      style: SubmitButtonStyle.elevated,
+                      textButton: 'MASUK',
+                      textButtonSize: 15,
                       height: 54,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (formKey.currentState?.validate() ?? false) {}
-                        },
-                        child: const Text(
-                          'MASUK',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 1.2,
-                          ),
-                        ),
-                      ),
+                      onPressed: () {
+                        if (formKey.currentState?.validate() ?? false) {
+                          context.read<AuthBloc>().add(
+                            AuthEvent.postlogin(
+                              email: username.text,
+                              password: password.text,
+                              deviceType: 'platform',
+                              fcmToken: 'fcmToken',
+                            ),
+                          );
+                        }
+                      },
                     ),
+
                     const SizedBox(height: 28),
 
                     // or

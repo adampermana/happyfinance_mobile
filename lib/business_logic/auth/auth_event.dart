@@ -4,10 +4,9 @@ part of 'auth_bloc.dart';
 class AuthEvent with _$AuthEvent {
   const factory AuthEvent.started() = _Started;
   const factory AuthEvent.postlogin({
-    required String usernameOrEmail,
+    required String email,
     required String password,
-    required double latitude,
-    required double longitude,
+    required String deviceType,
     required String fcmToken,
   }) = _Postlogin;
 

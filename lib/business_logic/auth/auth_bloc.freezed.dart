@@ -128,11 +128,11 @@ return postForgotPassword(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String usernameOrEmail,  String password,  double latitude,  double longitude,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
-return postlogin(_that.usernameOrEmail,_that.password,_that.latitude,_that.longitude,_that.fcmToken);case _PostRegister() when postRegister != null:
+return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
 return postForgotPassword(_that.email);case _:
   return orElse();
@@ -152,11 +152,11 @@ return postForgotPassword(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String usernameOrEmail,  String password,  double latitude,  double longitude,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String email,  String password,  String deviceType,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _Postlogin():
-return postlogin(_that.usernameOrEmail,_that.password,_that.latitude,_that.longitude,_that.fcmToken);case _PostRegister():
+return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister():
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword():
 return postForgotPassword(_that.email);case _:
   throw StateError('Unexpected subclass');
@@ -175,11 +175,11 @@ return postForgotPassword(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String usernameOrEmail,  String password,  double latitude,  double longitude,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
-return postlogin(_that.usernameOrEmail,_that.password,_that.latitude,_that.longitude,_that.fcmToken);case _PostRegister() when postRegister != null:
+return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
 return postForgotPassword(_that.email);case _:
   return null;
@@ -225,13 +225,12 @@ String toString() {
 
 
 class _Postlogin implements AuthEvent {
-  const _Postlogin({required this.usernameOrEmail, required this.password, required this.latitude, required this.longitude, required this.fcmToken});
+  const _Postlogin({required this.email, required this.password, required this.deviceType, required this.fcmToken});
   
 
- final  String usernameOrEmail;
+ final  String email;
  final  String password;
- final  double latitude;
- final  double longitude;
+ final  String deviceType;
  final  String fcmToken;
 
 /// Create a copy of AuthEvent
@@ -244,16 +243,16 @@ _$PostloginCopyWith<_Postlogin> get copyWith => __$PostloginCopyWithImpl<_Postlo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Postlogin&&(identical(other.usernameOrEmail, usernameOrEmail) || other.usernameOrEmail == usernameOrEmail)&&(identical(other.password, password) || other.password == password)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Postlogin&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,usernameOrEmail,password,latitude,longitude,fcmToken);
+int get hashCode => Object.hash(runtimeType,email,password,deviceType,fcmToken);
 
 @override
 String toString() {
-  return 'AuthEvent.postlogin(usernameOrEmail: $usernameOrEmail, password: $password, latitude: $latitude, longitude: $longitude, fcmToken: $fcmToken)';
+  return 'AuthEvent.postlogin(email: $email, password: $password, deviceType: $deviceType, fcmToken: $fcmToken)';
 }
 
 
@@ -264,7 +263,7 @@ abstract mixin class _$PostloginCopyWith<$Res> implements $AuthEventCopyWith<$Re
   factory _$PostloginCopyWith(_Postlogin value, $Res Function(_Postlogin) _then) = __$PostloginCopyWithImpl;
 @useResult
 $Res call({
- String usernameOrEmail, String password, double latitude, double longitude, String fcmToken
+ String email, String password, String deviceType, String fcmToken
 });
 
 
@@ -281,13 +280,12 @@ class __$PostloginCopyWithImpl<$Res>
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? usernameOrEmail = null,Object? password = null,Object? latitude = null,Object? longitude = null,Object? fcmToken = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? deviceType = null,Object? fcmToken = null,}) {
   return _then(_Postlogin(
-usernameOrEmail: null == usernameOrEmail ? _self.usernameOrEmail : usernameOrEmail // ignore: cast_nullable_to_non_nullable
+email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,latitude: null == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
-as double,longitude: null == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
-as double,fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
+as String,deviceType: null == deviceType ? _self.deviceType : deviceType // ignore: cast_nullable_to_non_nullable
+as String,fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

@@ -12,22 +12,18 @@ class AuthRepositories implements IAuthRepositories {
 
   @override
   Future<Either<ServerFailures, LoginResponse>> postLogin({
-    required String usernameOrEmail,
+    required String email,
     required String password,
     required String uuidDevice,
-    required String latitude,
-    required String longitude,
-    required String platform,
+    required String deviceType,
     required String fcmToken,
   }) async {
     try {
       final response = await _remoteDatasource.postLogin(
-        usernameOrEmail: usernameOrEmail,
+        email: email,
         password: password,
         uuidDevice: uuidDevice,
-        latitude: latitude,
-        longitude: longitude,
-        platform: platform,
+        deviceType: deviceType,
         fcmToken: fcmToken,
       );
       await _localDatasource.saveAuth(

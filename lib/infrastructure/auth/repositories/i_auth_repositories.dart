@@ -11,12 +11,10 @@ abstract class IAuthRepositories {
   Future<AuthDataHive?> fetchDataLogin();
 
   Future<Either<ServerFailures, LoginResponse>> postLogin({
-    required String usernameOrEmail,
+    required String email,
     required String password,
     required String uuidDevice,
-    required String latitude,
-    required String longitude,
-    required String platform,
+    required String deviceType,
     required String fcmToken,
   });
   // Future<Either<ServerFailures, RegisterResponse>> postRegister({

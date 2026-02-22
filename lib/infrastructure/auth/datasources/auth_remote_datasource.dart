@@ -6,23 +6,21 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
 
   @override
   Future<LoginResponse> postLogin({
-    required String usernameOrEmail,
+    required String email,
     required String password,
     required String uuidDevice,
-    required String latitude,
-    required String longitude,
-    required String platform,
+    required String deviceType,
     required String fcmToken,
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
         '/auth/login',
         data: {
-          'email': usernameOrEmail,
+          'email': email,
           'password': password,
           'uuid_device': uuidDevice,
           'fcm_token': fcmToken,
-          'device_type': platform,
+          'device_type': deviceType,
         },
       );
       return LoginResponse.fromJson(response.data!);

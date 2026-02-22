@@ -6,12 +6,10 @@ part 'auth_remote_datasource.dart';
 
 abstract class IAuthRemoteDatasource {
   Future<LoginResponse> postLogin({
-    required String usernameOrEmail,
+    required String email,
     required String password,
     required String uuidDevice,
-    required String latitude,
-    required String longitude,
-    required String platform,
+    required String deviceType,
     required String fcmToken,
   });
   // Future<RegisterResponse> postRegister({
