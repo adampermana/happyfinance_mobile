@@ -77,15 +77,22 @@ class CustomTextFormFieldWidget extends StatelessWidget {
 
       if (clearText && showClear && !readOnly && controller != null) {
         widgets.add(
-          IconButton(
-            tooltip: 'Bersihkan',
-            icon: const Icon(Icons.clear, size: 18),
-            splashRadius: 18,
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               controller!.clear();
               onChanged?.call('');
             },
+            child: const Icon(Icons.clear, size: 18),
           ),
+          // IconButton(
+          //   tooltip: 'Bersihkan',
+          //   icon: const Icon(Icons.clear, size: 18),
+          //   splashRadius: 18,
+          //   onPressed: () {
+          //     controller!.clear();
+          //     onChanged?.call('');
+          //   },
+          // ),
         );
       }
 
@@ -95,68 +102,65 @@ class CustomTextFormFieldWidget extends StatelessWidget {
     }
 
     // ── border helpers ───────────────────────────────────────────────────────
-    OutlineInputBorder _border(Color color, [double width = 1.5]) =>
+    OutlineInputBorder border(Color color, [double width = 1.5]) =>
         OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: color, width: width),
         );
 
-    final OutlineInputBorder _noBorder = OutlineInputBorder(
+    final noBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
       borderSide: const BorderSide(color: Colors.transparent, width: 0),
     );
 
-    // ── border sesuai state ──────────────────────────────────────────────────
-    // • default / enabled  → tidak ada border (sesuai gambar: kosong & value ada)
-    // • focused            → border primary (ungu) width 2
-    // • error              → border merah width 2
-    // • disabled           → tidak ada border, fill lebih pudar
-    // • readOnly           → border grey tipis (sesuai gambar kolom kanan bawah)
-    // Jika useBorder=true atau colorBorder diberikan, pakai border tersebut
-    // sebagai override untuk enabled/disabled state.
-
     final InputBorder enabledBorder = manualError
-        ? _border(theme.colorScheme.error, 2)
+        ? border(theme.colorScheme.error, 2)
         : (useBorder
-              ? _border(colorBorder ?? const Color(0xFF231F20))
+              ? border(colorBorder ?? const Color(0xFF231F20))
               : readOnly
-              ? _border(const Color(0xFFCCCCCC))
-              : _noBorder);
+              ? border(const Color(0xFFCCCCCC))
+              : noBorder);
 
     final InputBorder focusedBorder = manualError
-        ? _border(theme.colorScheme.error, 2)
-        : _border(colorBorder ?? theme.colorScheme.primary, 2);
+        ? border(theme.colorScheme.error, 2)
+        : border(colorBorder ?? theme.colorScheme.primary, 2);
 
-    final InputBorder errorBorder = _border(theme.colorScheme.error, 2);
-    final InputBorder focusedErrorBorder = _border(theme.colorScheme.error, 2);
+    final InputBorder errorBorder = border(theme.colorScheme.error, 2);
+    final InputBorder focusedErrorBorder = border(theme.colorScheme.error, 2);
 
     final InputBorder disabledBorder = useBorder
-        ? _border(theme.disabledColor.withValues(alpha: 0.2))
-        : _noBorder;
+        ? border(theme.disabledColor.withValues(alpha: 0.2))
+        : noBorder;
 
-    // ── core TextFormField ───────────────────────────────────────────────────
-    Widget textField({required Widget? suffix}) {
-      final field = TextFormField(
-        key: key,
-        controller: controller,
-        initialValue: controller == null ? initialValue : null,
-        obscureText: obscureText,
-        readOnly: readOnly,
-        onFieldSubmitted: onsubmit,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        textCapitalization: textCapitalization,
-        inputFormatters: inputFormatters,
-        style: textStyle ?? DefaultTextStyle.of(context).style,
-        decoration: InputDecoration(
+    // ── shadow decoration helper ───────────────────────────────────────────
+    const shadowDecoration = BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(12)),
+      boxShadow: [
+        BoxShadow(
+          color: Color(0x19000000),
+          blurRadius: 6,
+          offset: Offset(0, 4),
+          spreadRadius: -1,
+        ),
+        BoxShadow(
+          color: Color(0x0F000000),
+          blurRadius: 4,
+          offset: Offset(0, 2),
+          spreadRadius: -1,
+        ),
+      ],
+    );
+
+    // ── InputDecoration builder (reused below) ────────────────────────────
+    InputDecoration inputDecoration({bool hideError = false}) =>
+        InputDecoration(
           filled: true,
-          // Disabled pakai fill lebih pudar agar terlihat bedanya
           fillColor: fillColor ?? (readOnly ? _kFillColor : _kFillColor),
           hintText: hintText,
           hintStyle:
               hintStyle ?? TextStyle(color: theme.disabledColor, fontSize: 14),
           prefixIcon: prefixIcon,
-          suffixIcon: suffix,
+          suffixIcon: null, // set per-call
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
             vertical: 14,
@@ -167,36 +171,117 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           disabledBorder: disabledBorder,
           errorBorder: errorBorder,
           focusedErrorBorder: focusedErrorBorder,
-          // Gaya error text
-          errorStyle: TextStyle(color: theme.colorScheme.error, fontSize: 12),
+          errorStyle: hideError
+              ? const TextStyle(fontSize: 0, height: 0)
+              : TextStyle(color: theme.colorScheme.error, fontSize: 12),
           suffixIconConstraints: (suffixIcon != null && suffixIcon is Text)
               ? const BoxConstraints(minWidth: 16)
               : const BoxConstraints(minWidth: 32, minHeight: 24),
-        ),
-        onTap: onTap,
-        onChanged: onChanged,
-        validator: validator,
-      );
-      if (!showShadow) return field;
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 6,
-              offset: Offset(0, 4),
-              spreadRadius: -1,
-            ),
-            BoxShadow(
-              color: Color(0x0F000000),
-              blurRadius: 4,
-              offset: Offset(0, 2),
-              spreadRadius: -1,
-            ),
-          ],
-        ),
-        child: field,
+        );
+
+    // ── core TextFormField ───────────────────────────────────────────────────
+    Widget textField({required Widget? suffix}) {
+      // Tanpa shadow → pakai TextFormField biasa
+      if (!showShadow) {
+        return TextFormField(
+          key: key,
+          controller: controller,
+          initialValue: controller == null ? initialValue : null,
+          obscureText: obscureText,
+          readOnly: readOnly,
+          onFieldSubmitted: onsubmit,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          textCapitalization: textCapitalization,
+          inputFormatters: inputFormatters,
+          style: textStyle ?? DefaultTextStyle.of(context).style,
+          decoration: inputDecoration().copyWith(suffixIcon: suffix),
+          onTap: onTap,
+          onChanged: onChanged,
+          validator: validator,
+        );
+      }
+
+      // Dengan shadow → pisah input (shadow) dan error text (di bawah)
+      return FormField<String>(
+        initialValue: controller?.text ?? initialValue ?? '',
+        validator: validator != null
+            ? (value) => validator!(controller?.text ?? value)
+            : null,
+        builder: (state) {
+          // Sync error dari FormField ke InputDecoration border
+          final hasError = state.hasError;
+          final inputBorder = hasError ? errorBorder : enabledBorder;
+          final inputFocusedBorder = hasError
+              ? focusedErrorBorder
+              : focusedBorder;
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ── Shadow hanya di sekitar input ──
+              DecoratedBox(
+                decoration: hasError
+                    ? const BoxDecoration() // tanpa shadow saat error
+                    : shadowDecoration,
+                child: TextField(
+                  controller: controller,
+                  obscureText: obscureText,
+                  readOnly: readOnly,
+                  onSubmitted: onsubmit,
+                  keyboardType: keyboardType,
+                  textInputAction: textInputAction,
+                  textCapitalization: textCapitalization,
+                  inputFormatters: inputFormatters,
+                  style: textStyle ?? DefaultTextStyle.of(context).style,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor:
+                        fillColor ?? (readOnly ? _kFillColor : _kFillColor),
+                    hintText: hintText,
+                    hintStyle:
+                        hintStyle ??
+                        TextStyle(color: theme.disabledColor, fontSize: 14),
+                    prefixIcon: prefixIcon,
+                    suffixIcon: suffix,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 14,
+                    ),
+                    border: inputBorder,
+                    enabledBorder: inputBorder,
+                    focusedBorder: inputFocusedBorder,
+                    disabledBorder: disabledBorder,
+                    errorBorder: errorBorder,
+                    focusedErrorBorder: focusedErrorBorder,
+                    suffixIconConstraints:
+                        (suffixIcon != null && suffixIcon is Text)
+                        ? const BoxConstraints(minWidth: 16)
+                        : const BoxConstraints(minWidth: 32, minHeight: 24),
+                  ),
+                  onTap: onTap,
+                  onChanged: (value) {
+                    state.didChange(value);
+                    onChanged?.call(value);
+                  },
+                ),
+              ),
+              // ── Error text di bawah shadow ──
+              if (hasError)
+                Padding(
+                  padding: const EdgeInsets.only(top: 6, left: 12),
+                  child: Text(
+                    state.errorText!,
+                    style: TextStyle(
+                      color: theme.colorScheme.error,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
       );
     }
 
@@ -613,74 +698,185 @@ class _CustomEmailFormFieldState extends State<CustomEmailFormField> {
             const SizedBox(height: 5),
           ],
           () {
-            final tf = TextFormField(
-              controller: _controller,
-              focusNode: _focusNode,
-              readOnly: widget.readOnly,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: widget.textInputAction,
-              style: widget.textStyle ?? DefaultTextStyle.of(context).style,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: widget.fillColor ?? const Color(0xFFE8E8E8),
-                hintText: widget.hintText,
-                hintStyle:
-                    widget.hintStyle ??
-                    TextStyle(color: theme.disabledColor, fontSize: 14),
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: _currentInput.isNotEmpty && !widget.readOnly
-                    ? IconButton(
-                        icon: const Icon(Icons.clear, size: 18),
-                        onPressed: () {
-                          _controller.clear();
-                          setState(() => _currentInput = '');
-                          _hideSuggestions();
-                          widget.onChanged?.call('');
-                        },
-                      )
-                    : null,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 14,
+            // ── shadow decoration ──
+            const shadowDeco = BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x19000000),
+                  blurRadius: 6,
+                  offset: Offset(0, 4),
+                  spreadRadius: -1,
                 ),
-                border: noBorder,
-                enabledBorder: widget.readOnly
-                    ? b(const Color(0xFFCCCCCC))
-                    : noBorder,
-                focusedBorder: b(theme.colorScheme.primary, 2),
-                disabledBorder: noBorder,
-                errorBorder: b(theme.colorScheme.error, 2),
-                focusedErrorBorder: b(theme.colorScheme.error, 2),
-                errorStyle: TextStyle(
-                  color: theme.colorScheme.error,
-                  fontSize: 12,
+                BoxShadow(
+                  color: Color(0x0F000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                  spreadRadius: -1,
                 ),
-              ),
-              onTap: widget.onTap,
-              onChanged: _onTextChanged,
-              onFieldSubmitted: widget.onsubmit,
-              validator: widget.validator ?? _defaultEmailValidator,
+              ],
             );
-            if (!widget.showShadow) return tf;
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x19000000),
-                    blurRadius: 6,
-                    offset: Offset(0, 4),
-                    spreadRadius: -1,
+
+            // ── InputDecoration shared ──
+            InputDecoration emailInputDeco({bool hideError = false}) =>
+                InputDecoration(
+                  filled: true,
+                  fillColor: widget.fillColor ?? const Color(0xFFE8E8E8),
+                  hintText: widget.hintText,
+                  hintStyle:
+                      widget.hintStyle ??
+                      TextStyle(color: theme.disabledColor, fontSize: 14),
+                  prefixIcon: widget.prefixIcon,
+                  suffixIcon: _currentInput.isNotEmpty && !widget.readOnly
+                      ? GestureDetector(
+                          onTap: () {
+                            _controller.clear();
+                            setState(() => _currentInput = '');
+                            _hideSuggestions();
+                            widget.onChanged?.call('');
+                          },
+                          child: const Icon(Icons.clear, size: 18),
+                        )
+                      // IconButton(
+                      //     icon: const Icon(Icons.clear, size: 18),
+                      //     onPressed: () {
+                      //       _controller.clear();
+                      //       setState(() => _currentInput = '');
+                      //       _hideSuggestions();
+                      //       widget.onChanged?.call('');
+                      //     },
+                      //   )
+                      : null,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 14,
                   ),
-                  BoxShadow(
-                    color: Color(0x0F000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                    spreadRadius: -1,
-                  ),
-                ],
-              ),
-              child: tf,
+                  border: noBorder,
+                  enabledBorder: widget.readOnly
+                      ? b(const Color(0xFFCCCCCC))
+                      : noBorder,
+                  focusedBorder: b(theme.colorScheme.primary, 2),
+                  disabledBorder: noBorder,
+                  errorBorder: b(theme.colorScheme.error, 2),
+                  focusedErrorBorder: b(theme.colorScheme.error, 2),
+                  errorStyle: hideError
+                      ? const TextStyle(fontSize: 0, height: 0)
+                      : TextStyle(
+                          color: theme.colorScheme.error,
+                          fontSize: 12,
+                        ),
+                );
+
+            // Tanpa shadow → TextFormField biasa
+            if (!widget.showShadow) {
+              return TextFormField(
+                controller: _controller,
+                focusNode: _focusNode,
+                readOnly: widget.readOnly,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: widget.textInputAction,
+                style: widget.textStyle ?? DefaultTextStyle.of(context).style,
+                decoration: emailInputDeco(),
+                onTap: widget.onTap,
+                onChanged: _onTextChanged,
+                onFieldSubmitted: widget.onsubmit,
+                validator: widget.validator ?? _defaultEmailValidator,
+              );
+            }
+
+            // Dengan shadow → pisah input (shadow) dan error text
+            return FormField<String>(
+              initialValue: _controller.text,
+              validator: (widget.validator ?? _defaultEmailValidator),
+              builder: (FormFieldState<String> state) {
+                final hasError = state.hasError;
+                final inputBorder = hasError
+                    ? b(theme.colorScheme.error, 2)
+                    : (widget.readOnly ? b(const Color(0xFFCCCCCC)) : noBorder);
+                final inputFocusedBorder = hasError
+                    ? b(theme.colorScheme.error, 2)
+                    : b(theme.colorScheme.primary, 2);
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DecoratedBox(
+                      decoration: hasError ? const BoxDecoration() : shadowDeco,
+                      child: TextField(
+                        controller: _controller,
+                        focusNode: _focusNode,
+                        readOnly: widget.readOnly,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: widget.textInputAction,
+                        style:
+                            widget.textStyle ??
+                            DefaultTextStyle.of(context).style,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor:
+                              widget.fillColor ?? const Color(0xFFE8E8E8),
+                          hintText: widget.hintText,
+                          hintStyle:
+                              widget.hintStyle ??
+                              TextStyle(
+                                color: theme.disabledColor,
+                                fontSize: 14,
+                              ),
+                          prefixIcon: widget.prefixIcon,
+                          suffixIcon:
+                              _currentInput.isNotEmpty && !widget.readOnly
+                              ? GestureDetector(
+                                  onTap: () {
+                                    _controller.clear();
+                                    setState(() => _currentInput = '');
+                                    _hideSuggestions();
+                                    widget.onChanged?.call('');
+                                  },
+                                  child: const Icon(Icons.clear, size: 18),
+                                )
+                              // IconButton(
+                              //     icon: const Icon(Icons.clear, size: 18),
+                              //     onPressed: () {
+                              //       _controller.clear();
+                              //       setState(() => _currentInput = '');
+                              //       _hideSuggestions();
+                              //       widget.onChanged?.call('');
+                              //     },
+                              //   )
+                              : null,
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 14,
+                          ),
+                          border: inputBorder,
+                          enabledBorder: inputBorder,
+                          focusedBorder: inputFocusedBorder,
+                          disabledBorder: noBorder,
+                          errorBorder: b(theme.colorScheme.error, 2),
+                          focusedErrorBorder: b(theme.colorScheme.error, 2),
+                        ),
+                        onTap: widget.onTap,
+                        onChanged: (value) {
+                          state.didChange(value);
+                          _onTextChanged(value);
+                        },
+                      ),
+                    ),
+                    if (hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 6, left: 12),
+                        child: Text(
+                          state.errorText!,
+                          style: TextStyle(
+                            color: theme.colorScheme.error,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
             );
           }(),
         ],

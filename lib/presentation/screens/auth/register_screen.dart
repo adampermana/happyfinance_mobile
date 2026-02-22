@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:happyfinance_mobile/presentation/app/resources/color_palette.dart';
+import 'package:happyfinance_mobile/presentation/enums/enum_widget.dart';
+import 'package:happyfinance_mobile/presentation/widget/custom_dialog.dart';
 import 'package:happyfinance_mobile/presentation/widget/custom_textfield.dart';
+import 'package:happyfinance_mobile/presentation/widget/submit_button_styles.dart';
 
 class RegisterScreen extends HookWidget {
   const RegisterScreen({super.key});
@@ -175,25 +178,30 @@ class RegisterScreen extends HookWidget {
                 const SizedBox(height: 28),
 
                 // DAFTAR button
-                SizedBox(
-                  width: double.infinity,
+                SubmitButtonStylesWidget(
+                  style: SubmitButtonStyle.elevated,
                   height: 54,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState?.validate() ?? false) {
-                        // TODO: trigger register event
-                      }
-                    },
-                    child: const Text(
-                      'DAFTAR',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ),
+                  textButtonSize: 15,
+                  textButton: 'DAFTAR',
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      // TODO: trigger register event
+                      showOtpDialog(
+                        context,
+                        email: 'user@gmail.com', // opsional, tampil di subtitle
+                        length: 4, // jumlah digit OTP
+                        countdownSeconds: 60, // durasi countdown kirim ulang
+                        onVerify: (pin) {
+                          // handle verifikasi OTP
+                        },
+                        onResend: () {
+                          // handle kirim ulang OTP
+                        },
+                      );
+                    }
+                  },
                 ),
+
                 const SizedBox(height: 24),
 
                 // Login link

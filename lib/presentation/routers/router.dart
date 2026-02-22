@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:happyfinance_mobile/business_logic/auth/auth_account/auth_account_bloc.dart';
-import 'package:happyfinance_mobile/business_logic/auth/auth_bloc.dart';
 import 'package:happyfinance_mobile/business_logic/core/core_cubit.dart';
 import 'package:happyfinance_mobile/injector.dart';
 import 'package:happyfinance_mobile/presentation/onboarding/onboarding_screen.dart';

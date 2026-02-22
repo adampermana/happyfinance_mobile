@@ -13,5 +13,5 @@ abstract class ICoreLocalDatasource {
 
   Future<void> saveOnBoarding({required bool isBoarding});
 
-  Future<bool> fetchOnBoarding();
+  bool fetchOnBoarding();
 }

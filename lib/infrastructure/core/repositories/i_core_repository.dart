@@ -10,5 +10,5 @@ abstract class ICoreRepository {
   Locale? getLocale();
 
   Future<void> saveOnBoarding({required bool isBoarding});
-  Future<bool> fetchOnBoarding();
+  bool fetchOnBoarding();
 }

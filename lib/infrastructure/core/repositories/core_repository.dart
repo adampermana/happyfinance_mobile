@@ -18,5 +18,5 @@ class CoreRepositories implements ICoreRepository {
       _localDatasource.saveOnBoarding(isBoarding: isBoarding);
 
   @override
-  Future<bool> fetchOnBoarding() => _localDatasource.fetchOnBoarding();
+  bool fetchOnBoarding() => _localDatasource.fetchOnBoarding();
 }

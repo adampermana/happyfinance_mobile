@@ -10,13 +10,9 @@ class CoreCubit extends Cubit<CoreState> {
 
   final ICoreRepository _coreRepository;
 
-  Future<void> fetchOnBoarding() async {
-    final result = await _coreRepository.fetchOnBoarding();
-    return emit(
-      state.copyWith(
-        isBoarding: result,
-      ),
-    );
+  void fetchOnBoarding() {
+    final result = _coreRepository.fetchOnBoarding();
+    emit(state.copyWith(isBoarding: result));
   }
 
   Future<void> saveBoardingScreen() async {

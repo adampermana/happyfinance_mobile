@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:happyfinance_mobile/business_logic/auth/auth_account/auth_account_bloc.dart';
 import 'package:happyfinance_mobile/business_logic/auth/auth_bloc.dart';
 import 'package:happyfinance_mobile/injector.dart';
 import 'package:happyfinance_mobile/presentation/app/resources/color_palette.dart';
+import 'package:happyfinance_mobile/presentation/routers/route_path.dart';
 import 'package:happyfinance_mobile/presentation/widget/cache_images.dart';
 import 'package:happyfinance_mobile/presentation/widget/custom_snackbars.dart';
 import 'package:happyfinance_mobile/presentation/widget/custom_textfield.dart';
@@ -176,7 +178,6 @@ class LoginScreen extends HookWidget {
                     ),
                     const SizedBox(height: 24),
 
-                    // ── Login button ─────────────────────────────────────────
                     SizedBox(
                       width: double.infinity,
                       height: 54,
@@ -226,32 +227,26 @@ class LoginScreen extends HookWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // Social Buttons
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _SocialButton(
-                            onTap: () {},
-                            child: const CacheImageOrSvg(
+                    Material(
+                      color: ColorPalette.kWhite,
+                      borderRadius: BorderRadius.circular(12),
+                      shadowColor: ColorPalette.kBlack,
+                      elevation: 4,
+                      child: InkWell(
+                        onTap: () {},
+                        borderRadius: BorderRadius.circular(12),
+                        child: const SizedBox(
+                          width: 54,
+                          height: 54,
+                          child: Center(
+                            child: CacheImageOrSvg(
                               source: 'assets/icons/icon-google.svg',
-                              width: 28,
-                              height: 28,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _SocialButton(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.apple,
-                              size: 28,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
+
                     const SizedBox(height: 36),
 
                     // Register link
@@ -268,7 +263,9 @@ class LoginScreen extends HookWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () async {
+                            await context.push(RoutePath.registerPath);
+                          },
                           child: const Text(
                             'DAFTAR SEKARANG',
                             style: TextStyle(
@@ -287,30 +284,6 @@ class LoginScreen extends HookWidget {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-// Social login button
-class _SocialButton extends StatelessWidget {
-  const _SocialButton({required this.onTap, required this.child});
-
-  final VoidCallback onTap;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 54,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFFE5E7EB)),
-        ),
-        child: Center(child: child),
       ),
     );
   }

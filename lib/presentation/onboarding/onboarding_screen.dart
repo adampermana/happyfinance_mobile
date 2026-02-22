@@ -14,12 +14,9 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CoreCubit, CoreState>(
-      listenWhen: (prev, next) =>
-          prev.isBoarding != next.isBoarding ||
-          prev.isSubmmitBoard != next.isSubmmitBoard,
+      listenWhen: (prev, next) => prev.isSubmmitBoard != next.isSubmmitBoard,
       listener: (context, state) {
-        // after berhasil => login
-        if (state.isBoarding) {
+        if (state.isSubmmitBoard) {
           debugPrint('===== //${state.isBoarding} ke login');
           context.go(RoutePath.loginPath);
         }
@@ -27,11 +24,24 @@ class OnboardingPage extends StatelessWidget {
       child: BlocBuilder<CoreCubit, CoreState>(
         builder: (context, state) {
           return OnBoardingSlider(
+            skipFunctionOverride: () {
+              debugPrint('===== //${state.isBoarding} ke login');
+              context.go(RoutePath.loginPath);
+            },
             centerBackground: true,
+            skipTextButton: const Text(
+              'Lewati',
+              style: TextStyle(
+                fontSize: 13,
+                color: ColorPalette.kBlack,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
             totalPage: 3,
-            finishButtonText: 'Mulai',
-            imageVerticalOffset: 130,
+            finishButtonText: 'Mulai Sekarang',
+            imageVerticalOffset: 100,
             nextButtonText: 'Selanjutnya',
+            controllerColor: ColorPalette.primaryColor,
             finishButtonTextStyle: const TextStyle(
               fontSize: 20,
               color: ColorPalette.kWhite,
@@ -41,6 +51,7 @@ class OnboardingPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
+              backgroundColor: ColorPalette.primaryColor,
             ),
             // controllerColor: ColorPalette.kTeal,
             pageBackgroundColor: ColorPalette.scaffoldBackground,
@@ -54,16 +65,16 @@ class OnboardingPage extends StatelessWidget {
             ],
             background: const [
               CacheImageOrSvg(
-                source: 'assets/onboarding/landing1.png',
+                source: 'assets/images/landing1.png',
                 fit: BoxFit.contain,
               ),
               CacheImageOrSvg(
-                source: 'assets/onboarding/landing2.png',
+                source: 'assets/images/landing2.png',
                 fit: BoxFit.contain,
               ),
               CacheImageOrSvg(
-                source: 'assets/onboarding/landing3.png',
-                fit: BoxFit.contain,
+                source: 'assets/images/landing3.png',
+                fit: BoxFit.none,
               ),
             ],
             speed: 1,
@@ -84,15 +95,15 @@ class OnboardingPage extends StatelessWidget {
                             : context.isTabletSmall
                             ? 800
                             : context.isPhoneLarge
-                            ? 400
+                            ? 500
                             : context.isPhoneMedium
-                            ? 300
+                            ? 500
                             : context.isPhoneSmall
                             ? 400
                             : 400,
                       ),
                       Text(
-                        'Ragu Saat Belanja?',
+                        'Pantau Keuanganmu\nsetiap saat',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: context.isTabletLarge
@@ -102,14 +113,15 @@ class OnboardingPage extends StatelessWidget {
                               : context.isTabletSmall
                               ? 48
                               : context.isPhoneMedium
-                              ? 24
+                              ? 30
                               : 24,
                           fontWeight: FontWeight.w700,
                           height: 1.1,
                         ),
                       ),
                       Text(
-                        'Pastikan yang kamu konsumsi\naman dan sesuai syariat.',
+                        'Catat pemasukan dan pengeluaran Anda'
+                        '\nsecara otomatis dengan mudah dan cepat.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: ColorPalette.kBlack.withValues(alpha: 0.4),
@@ -120,7 +132,7 @@ class OnboardingPage extends StatelessWidget {
                               : context.isTabletSmall
                               ? 30
                               : context.isPhoneMedium
-                              ? 14
+                              ? 16
                               : 14,
                           fontWeight: FontWeight.w400,
                           height: 1.4,
@@ -144,15 +156,15 @@ class OnboardingPage extends StatelessWidget {
                           : context.isTabletSmall
                           ? 800
                           : context.isPhoneLarge
-                          ? 400
+                          ? 500
                           : context.isPhoneMedium
-                          ? 300
+                          ? 500
                           : context.isPhoneSmall
                           ? 400
                           : 400,
                     ),
                     Text(
-                      'Scan Merk Produk',
+                      'Bebas dari Utang',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: ColorPalette.kBlack,
@@ -163,14 +175,15 @@ class OnboardingPage extends StatelessWidget {
                             : context.isTabletSmall
                             ? 48
                             : context.isPhoneMedium
-                            ? 24
+                            ? 30
                             : 24,
                         fontWeight: FontWeight.w700,
                         height: 1.1,
                       ),
                     ),
                     Text(
-                      'Posisikan produk ada di dalam bingkai kamera\n(Merk / Logo, Barcode)',
+                      'Kelola utang dan piutang dengan pengingat'
+                      '\ncerdas agar finansial tetap sehat.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: ColorPalette.kBlack.withValues(alpha: 0.4),
@@ -181,7 +194,7 @@ class OnboardingPage extends StatelessWidget {
                             : context.isTabletSmall
                             ? 30
                             : context.isPhoneMedium
-                            ? 13
+                            ? 16
                             : 13,
                         fontWeight: FontWeight.w400,
                         height: 1.4,
@@ -206,15 +219,15 @@ class OnboardingPage extends StatelessWidget {
                             : context.isTabletSmall
                             ? 800
                             : context.isPhoneLarge
-                            ? 400
+                            ? 500
                             : context.isPhoneMedium
-                            ? 300
+                            ? 500
                             : context.isPhoneSmall
                             ? 400
                             : 400,
                       ),
                       Text(
-                        'Info Detail & Akurat',
+                        'Mulai hidup\nbahagia',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: ColorPalette.kBlack,
@@ -225,14 +238,15 @@ class OnboardingPage extends StatelessWidget {
                               : context.isTabletSmall
                               ? 48
                               : context.isPhoneMedium
-                              ? 24
+                              ? 30
                               : 24,
                           fontWeight: FontWeight.w700,
                           height: 1.1,
                         ),
                       ),
                       Text(
-                        'Status kehalalan tersedia dalam\nhitungan detik.',
+                        'Siap untuk mengontrol keuangan'
+                        '\nAnda? Mari bergabung degan jutaan pengguna lainnya.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: ColorPalette.kBlack.withValues(alpha: 0.4),
@@ -243,7 +257,7 @@ class OnboardingPage extends StatelessWidget {
                               : context.isTabletSmall
                               ? 30
                               : context.isPhoneMedium
-                              ? 14
+                              ? 16
                               : 14,
                           fontWeight: FontWeight.w400,
                           height: 1.4,

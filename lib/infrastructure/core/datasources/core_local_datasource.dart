@@ -55,7 +55,7 @@ class HiveCoreLocalDatasource implements ICoreLocalDatasource {
   }
 
   @override
-  Future<bool> fetchOnBoarding() async {
+  bool fetchOnBoarding() {
     try {
       return Hive.box<bool>(onBoardingBox).get(_onBoardingKey) ?? false;
     } on SocketException catch (e) {
