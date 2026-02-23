@@ -80,15 +80,9 @@ class ServerException extends ServerFailures implements Exception {
           break;
         }
 
-        // Parse meta object
-        final meta = responseData['meta'];
-        String? metaMessage;
-        int? metaCode;
-
-        if (meta is Map<String, dynamic>) {
-          metaMessage = _asString(meta['message']);
-          metaCode = meta['code'] as int?;
-        }
+        // Parse flat response: { success, message, code }
+        final responseMessage = _asString(responseData['message']);
+        final responseCode = responseData['code'] as int?;
 
         // Parse data object
         final data = responseData['data'];
@@ -102,31 +96,8 @@ class ServerException extends ServerFailures implements Exception {
           dataPhone = _asString(data['phone']) ?? '';
         }
 
-        // Use meta.code if available, otherwise use response status code
-        code = metaCode ?? code;
-        message = metaMessage ?? 'Something went wrong.';
-
-        // Handle specific status codes
-        if (code == 401) {
-          title = 'Sesi Berakhir';
-          message =
-              metaMessage ?? 'Sesi Anda telah berakhir. Silakan login kembali.';
-          email = dataEmail;
-        } else if (code == 403) {
-          // Account needs verification
-          title = 'Verifikasi Diperlukan';
-          message = metaMessage ?? 'Silakan verifikasi akun Anda.';
-          email = dataEmail;
-        } else if (code == 500) {
-          title = 'Server Error';
-          message = metaMessage ?? 'Internal Server Error';
-          email = dataEmail;
-        } else {
-          title = 'Error';
-          message =
-              metaMessage ?? 'Something went wrong. We are working on it.';
-          email = dataEmail;
-        }
+        code = responseCode ?? code;
+        message = responseMessage ?? 'Something went wrong.';
 
         // Return with all parsed data
         return ServerException._(
