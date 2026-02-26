@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "241973761970",
+    "project_id": "happyfinance-9885f",
+    "storage_bucket": "happyfinance-9885f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241973761970:android:d3ec0c3045f0b65e9676ab",
+        "android_client_info": {
+          "package_name": "com.localtechindonesia.happyfinance_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlOYUBvTo44MITfrO0oAlbuqWbMrH2pEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
