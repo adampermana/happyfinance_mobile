@@ -3,6 +3,7 @@ import 'package:happyfinance_mobile/business_logic/auth/auth_account/auth_accoun
 import 'package:happyfinance_mobile/business_logic/auth/auth_bloc.dart';
 import 'package:happyfinance_mobile/business_logic/core/core_cubit.dart';
 import 'package:happyfinance_mobile/business_logic/locale/locale_bloc.dart';
+import 'package:happyfinance_mobile/business_logic/network_connection/network_connection_bloc.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/datasources/auth_local_datasource.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/datasources/i_auth_remote_datasource.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/repositories/i_auth_repositories.dart';
@@ -22,9 +23,9 @@ Future<void> initApp() async {
 
 Future<void> _initCoreFeature() async {
   sl
-  // ..registerLazySingleton<IThemeLocalDatasource>(HiveThemeLocalDatasource.new)
-  .registerLazySingleton(DioApi.init);
-  // ..registerFactory(NetworkConnectionBloc.new)
+    // ..registerLazySingleton<IThemeLocalDatasource>(HiveThemeLocalDatasource.new)
+    ..registerFactory(NetworkConnectionBloc.new)
+    ..registerLazySingleton(DioApi.init);
   // ..registerFactory<MultiScreenBloc>(MultiScreenBloc.new)
   // ..registerFactory<ThemeModeBloc>(() => ThemeModeBloc(sl()))
   // ..registerFactory<DeviceSources>(DeviceSources.new);
