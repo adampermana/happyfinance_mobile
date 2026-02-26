@@ -104,7 +104,7 @@ class ServerException extends ServerFailures implements Exception {
           statusCode: code,
           title: title,
           message: message,
-          email: email,
+          email: dataEmail,
           phone: dataPhone,
           requiresVerification: requiresVerification,
         );

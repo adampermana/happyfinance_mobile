@@ -54,6 +54,15 @@ unlinked_spec.ds
 **/android/app/release
 *.jks
 
+# Firebase config (sensitive — jangan di-commit)
+**/android/app/google-services.json
+**/ios/Runner/GoogleService-Info.plist
+
+# Environment variables (sensitive — jangan di-commit)
+.env.*
+!.env.example
+
+
 # iOS/XCode related
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3

@@ -625,7 +625,7 @@ $TokenCopyWith<$Res>? get token {
 /// @nodoc
 mixin _$Token {
 
- String? get accessToken; String? get refreshToken; String? get tokenType; int? get expiresIn;
+@JsonKey(name: 'access_token') String? get accessToken;@JsonKey(name: 'refresh_token') String? get refreshToken;@JsonKey(name: 'token_type') String? get tokenType;@JsonKey(name: 'expires_in') int? get expiresIn;
 /// Create a copy of Token
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -658,7 +658,7 @@ abstract mixin class $TokenCopyWith<$Res>  {
   factory $TokenCopyWith(Token value, $Res Function(Token) _then) = _$TokenCopyWithImpl;
 @useResult
 $Res call({
- String? accessToken, String? refreshToken, String? tokenType, int? expiresIn
+@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'refresh_token') String? refreshToken,@JsonKey(name: 'token_type') String? tokenType,@JsonKey(name: 'expires_in') int? expiresIn
 });
 
 
@@ -766,7 +766,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? accessToken,  String? refreshToken,  String? tokenType,  int? expiresIn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'expires_in')  int? expiresIn)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Token() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn);case _:
@@ -787,7 +787,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? accessToken,  String? refreshToken,  String? tokenType,  int? expiresIn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'expires_in')  int? expiresIn)  $default,) {final _that = this;
 switch (_that) {
 case _Token():
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn);case _:
@@ -807,7 +807,7 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? accessToken,  String? refreshToken,  String? tokenType,  int? expiresIn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'access_token')  String? accessToken, @JsonKey(name: 'refresh_token')  String? refreshToken, @JsonKey(name: 'token_type')  String? tokenType, @JsonKey(name: 'expires_in')  int? expiresIn)?  $default,) {final _that = this;
 switch (_that) {
 case _Token() when $default != null:
 return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expiresIn);case _:
@@ -822,13 +822,13 @@ return $default(_that.accessToken,_that.refreshToken,_that.tokenType,_that.expir
 @JsonSerializable()
 
 class _Token implements Token {
-  const _Token({this.accessToken, this.refreshToken, this.tokenType, this.expiresIn});
+  const _Token({@JsonKey(name: 'access_token') this.accessToken, @JsonKey(name: 'refresh_token') this.refreshToken, @JsonKey(name: 'token_type') this.tokenType, @JsonKey(name: 'expires_in') this.expiresIn});
   factory _Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
 
-@override final  String? accessToken;
-@override final  String? refreshToken;
-@override final  String? tokenType;
-@override final  int? expiresIn;
+@override@JsonKey(name: 'access_token') final  String? accessToken;
+@override@JsonKey(name: 'refresh_token') final  String? refreshToken;
+@override@JsonKey(name: 'token_type') final  String? tokenType;
+@override@JsonKey(name: 'expires_in') final  int? expiresIn;
 
 /// Create a copy of Token
 /// with the given fields replaced by the non-null parameter values.
@@ -863,7 +863,7 @@ abstract mixin class _$TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
   factory _$TokenCopyWith(_Token value, $Res Function(_Token) _then) = __$TokenCopyWithImpl;
 @override @useResult
 $Res call({
- String? accessToken, String? refreshToken, String? tokenType, int? expiresIn
+@JsonKey(name: 'access_token') String? accessToken,@JsonKey(name: 'refresh_token') String? refreshToken,@JsonKey(name: 'token_type') String? tokenType,@JsonKey(name: 'expires_in') int? expiresIn
 });
 
 
@@ -897,7 +897,7 @@ as int?,
 /// @nodoc
 mixin _$User {
 
- int? get id; String? get name; String? get email; dynamic get avatar; String? get defaultMode; bool? get isPremium; DateTime? get lastLoginAt;
+ int? get id; String? get name; String? get email; dynamic get avatar;@JsonKey(name: 'default_mode') String? get defaultMode;@JsonKey(name: 'is_premium') bool? get isPremium;@JsonKey(name: 'last_login_at') DateTime? get lastLoginAt;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -930,7 +930,7 @@ abstract mixin class $UserCopyWith<$Res>  {
   factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
- int? id, String? name, String? email, dynamic avatar, String? defaultMode, bool? isPremium, DateTime? lastLoginAt
+ int? id, String? name, String? email, dynamic avatar,@JsonKey(name: 'default_mode') String? defaultMode,@JsonKey(name: 'is_premium') bool? isPremium,@JsonKey(name: 'last_login_at') DateTime? lastLoginAt
 });
 
 
@@ -1041,7 +1041,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? name,  String? email,  dynamic avatar,  String? defaultMode,  bool? isPremium,  DateTime? lastLoginAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String? name,  String? email,  dynamic avatar, @JsonKey(name: 'default_mode')  String? defaultMode, @JsonKey(name: 'is_premium')  bool? isPremium, @JsonKey(name: 'last_login_at')  DateTime? lastLoginAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_that.isPremium,_that.lastLoginAt);case _:
@@ -1062,7 +1062,7 @@ return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? name,  String? email,  dynamic avatar,  String? defaultMode,  bool? isPremium,  DateTime? lastLoginAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String? name,  String? email,  dynamic avatar, @JsonKey(name: 'default_mode')  String? defaultMode, @JsonKey(name: 'is_premium')  bool? isPremium, @JsonKey(name: 'last_login_at')  DateTime? lastLoginAt)  $default,) {final _that = this;
 switch (_that) {
 case _User():
 return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_that.isPremium,_that.lastLoginAt);case _:
@@ -1082,7 +1082,7 @@ return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? name,  String? email,  dynamic avatar,  String? defaultMode,  bool? isPremium,  DateTime? lastLoginAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String? name,  String? email,  dynamic avatar, @JsonKey(name: 'default_mode')  String? defaultMode, @JsonKey(name: 'is_premium')  bool? isPremium, @JsonKey(name: 'last_login_at')  DateTime? lastLoginAt)?  $default,) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_that.isPremium,_that.lastLoginAt);case _:
@@ -1097,16 +1097,16 @@ return $default(_that.id,_that.name,_that.email,_that.avatar,_that.defaultMode,_
 @JsonSerializable()
 
 class _User implements User {
-  const _User({this.id, this.name, this.email, this.avatar, this.defaultMode, this.isPremium, this.lastLoginAt});
+  const _User({this.id, this.name, this.email, this.avatar, @JsonKey(name: 'default_mode') this.defaultMode, @JsonKey(name: 'is_premium') this.isPremium, @JsonKey(name: 'last_login_at') this.lastLoginAt});
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  int? id;
 @override final  String? name;
 @override final  String? email;
 @override final  dynamic avatar;
-@override final  String? defaultMode;
-@override final  bool? isPremium;
-@override final  DateTime? lastLoginAt;
+@override@JsonKey(name: 'default_mode') final  String? defaultMode;
+@override@JsonKey(name: 'is_premium') final  bool? isPremium;
+@override@JsonKey(name: 'last_login_at') final  DateTime? lastLoginAt;
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
@@ -1141,7 +1141,7 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) _then) = __$UserCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, String? name, String? email, dynamic avatar, String? defaultMode, bool? isPremium, DateTime? lastLoginAt
+ int? id, String? name, String? email, dynamic avatar,@JsonKey(name: 'default_mode') String? defaultMode,@JsonKey(name: 'is_premium') bool? isPremium,@JsonKey(name: 'last_login_at') DateTime? lastLoginAt
 });
 
 

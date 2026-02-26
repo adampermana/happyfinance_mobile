@@ -14,7 +14,7 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
   }) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(
-        '/auth/login',
+        '/api/v1/auth/login',
         data: {
           'email': email,
           'password': password,
@@ -24,6 +24,50 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
         },
       );
       return LoginResponse.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw ServerException.withError(e);
+    }
+  }
+
+  @override
+  Future<GoogleAuthResponse> postGoogleAuth({
+    required String idToken,
+    required String uuidDevice,
+    String? fcmToken,
+    String? deviceType,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/api/v1/auth/google',
+        data: {
+          'id_token': idToken,
+          'uuid_device': uuidDevice,
+          'fcm_token': ?fcmToken,
+          'device_type': ?deviceType,
+        },
+      );
+      return GoogleAuthResponse.fromJson(response.data!);
+    } on DioException catch (e) {
+      throw ServerException.withError(e);
+    }
+  }
+
+  @override
+  Future<CompleteProfileResponse> postCompleteProfile({
+    required String tempToken,
+    required String phone,
+    String? name,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/api/v1/auth/complete-profile',
+        data: {
+          'temp_token': tempToken,
+          'phone': phone,
+          if (name != null) 'name': name,
+        },
+      );
+      return CompleteProfileResponse.fromJson(response.data!);
     } on DioException catch (e) {
       throw ServerException.withError(e);
     }

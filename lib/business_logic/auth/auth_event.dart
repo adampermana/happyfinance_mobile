@@ -3,6 +3,7 @@ part of 'auth_bloc.dart';
 @freezed
 class AuthEvent with _$AuthEvent {
   const factory AuthEvent.started() = _Started;
+
   const factory AuthEvent.postlogin({
     required String email,
     required String password,
@@ -24,4 +25,16 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.postForgotPassword({required String email}) =
       _PostForgotPassword;
+
+  const factory AuthEvent.postGoogleAuth({
+    required String uuidDevice,
+    String? fcmToken,
+    String? deviceType,
+  }) = _PostGoogleAuth;
+
+  const factory AuthEvent.postCompleteProfile({
+    required String tempToken,
+    required String phone,
+    String? name,
+  }) = _PostCompleteProfile;
 }

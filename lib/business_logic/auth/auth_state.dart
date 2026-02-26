@@ -11,11 +11,16 @@ abstract class AuthState with _$AuthState {
     required bool loading,
     required bool successLogin,
     required bool successRegister,
+    required bool successGoogleAuth,
+    required bool needsCompletion,
+    required String? tempToken,
+    required String? googleName,
+    required String? googleEmail,
     required bool isValid,
     required LoginResponse? loginResponse,
-    // required RegisterResponse? registerResponse,
     required Alert? alert,
   }) = _Initial;
+
   factory AuthState.initial() => const AuthState(
     email: '',
     password: '',
@@ -26,8 +31,12 @@ abstract class AuthState with _$AuthState {
     isValid: false,
     successLogin: false,
     successRegister: false,
+    successGoogleAuth: false,
+    needsCompletion: false,
+    tempToken: null,
+    googleName: null,
+    googleEmail: null,
     loginResponse: null,
-    // registerResponse: null,
     alert: null,
   );
 }

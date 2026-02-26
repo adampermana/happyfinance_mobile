@@ -29,10 +29,10 @@ abstract class Data with _$Data {
 @freezed
 abstract class Token with _$Token {
   const factory Token({
-    String? accessToken,
-    String? refreshToken,
-    String? tokenType,
-    int? expiresIn,
+    @JsonKey(name: 'access_token') String? accessToken,
+    @JsonKey(name: 'refresh_token') String? refreshToken,
+    @JsonKey(name: 'token_type') String? tokenType,
+    @JsonKey(name: 'expires_in') int? expiresIn,
   }) = _Token;
 
   factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
@@ -45,9 +45,9 @@ abstract class User with _$User {
     String? name,
     String? email,
     dynamic avatar,
-    String? defaultMode,
-    bool? isPremium,
-    DateTime? lastLoginAt,
+    @JsonKey(name: 'default_mode') String? defaultMode,
+    @JsonKey(name: 'is_premium') bool? isPremium,
+    @JsonKey(name: 'last_login_at') DateTime? lastLoginAt,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:happyfinance_mobile/domains/auth/google/complete_profile_response.dart';
+import 'package:happyfinance_mobile/domains/auth/google/google_auth_response.dart';
 import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/exceptions.dart';
 
@@ -11,6 +13,19 @@ abstract class IAuthRemoteDatasource {
     required String uuidDevice,
     required String deviceType,
     required String fcmToken,
+  });
+
+  Future<GoogleAuthResponse> postGoogleAuth({
+    required String idToken,
+    required String uuidDevice,
+    String? fcmToken,
+    String? deviceType,
+  });
+
+  Future<CompleteProfileResponse> postCompleteProfile({
+    required String tempToken,
+    required String phone,
+    String? name,
   });
   // Future<RegisterResponse> postRegister({
   //   required String username,

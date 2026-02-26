@@ -6,6 +6,7 @@ class RoutePath {
   static const String onBoardingPath = '/onBoarding';
   static const String loginPath = '/login';
   static const String registerPath = '/register';
+  static const String completeProfilePath = '/complete-profile';
 
   // Home paths
   static const String homePath = '/home';

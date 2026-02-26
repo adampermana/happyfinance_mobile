@@ -16,10 +16,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_Postlogin>(_onPostlogin);
     on<_PostRegister>(_onPostRegister);
     on<_PostForgotPassword>(_onPostForgotPassword);
+    on<_PostGoogleAuth>(_onPostGoogleAuth);
+    on<_PostCompleteProfile>(_onPostCompleteProfile);
   }
 
   final IAuthRepositories _authRepositories;
-  // final DeviceSources _deviceSources;
 
   Future<void> _onStarted(_Started event, Emitter<AuthState> emit) async {}
 
@@ -56,7 +57,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           successLogin: true,
           loginResponse: r,
           alert: null,
-          // message: r.meta?.message,
         ),
       ),
     );
@@ -74,43 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         message: null,
       ),
     );
-
-    // Get device information - sangat mudah sekarang!
-    // final device = await _deviceSources.deviceInfo();
-
-    // final result = await _authRepositories.postRegister(
-    //   username: event.username,
-    //   email: event.email,
-    //   phone: event.phone,
-    //   password: event.password,
-    //   latitude: event.latitude,
-    //   longitude: event.longitude,
-    //   uuidDevice: '211212d',
-    //   platform: 'android',
-    //   fcmToken: event.fcmToken,
-    //   isRule: event.isRule,
-    //   country: event.country,
-    // );
-
-    // result.fold(
-    //   (f) => emit(
-    //     state.copyWith(
-    //       successRegister: false,
-    //       loading: false,
-    //       message: f.message,
-    //       alert: Alert.fromFailures(f),
-    //     ),
-    //   ),
-    //   (r) => emit(
-    //     state.copyWith(
-    //       loading: false,
-    //       successRegister: true,
-    //       registerResponse: r,
-    //       alert: null,
-    //       message: r.meta?.message,
-    //     ),
-    //   ),
-    // );
+    // TODO: implement postRegister when backend is ready
   }
 
   Future<void> _onPostForgotPassword(
@@ -125,26 +89,99 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         message: null,
       ),
     );
+    // TODO: implement postForgotPassword when backend is ready
+  }
 
-    // final result = await _authRepositories.postForgotPassword(event.email);
+  Future<void> _onPostGoogleAuth(
+    _PostGoogleAuth event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        loading: true,
+        successGoogleAuth: false,
+        needsCompletion: false,
+        tempToken: null,
+        googleName: null,
+        googleEmail: null,
+        alert: null,
+        message: null,
+      ),
+    );
 
-    // result.fold(
-    //   (f) => emit(
-    //     state.copyWith(
-    //       success: false,
-    //       loading: false,
-    //       message: f.message,
-    //       alert: Alert.fromFailures(f),
-    //     ),
-    //   ),
-    //   (r) => emit(
-    //     state.copyWith(
-    //       loading: false,
-    //       success: true,
-    //       alert: null,
-    //       message: r.meta?.message,
-    //     ),
-    //   ),
-    // );
+    final result = await _authRepositories.postGoogleAuth(
+      uuidDevice: event.uuidDevice,
+      fcmToken: event.fcmToken,
+      deviceType: event.deviceType,
+    );
+
+    result.fold(
+      (f) => emit(
+        state.copyWith(
+          successGoogleAuth: false,
+          loading: false,
+          // Kalau user cancel, jangan tampilkan error message
+          message: f.statusCode == -1 && f.message == 'Login dibatalkan.'
+              ? null
+              : f.message,
+          alert: f.statusCode == -1 && f.message == 'Login dibatalkan.'
+              ? null
+              : Alert.fromFailures(f),
+        ),
+      ),
+      (r) {
+        final needsCompletion = r.data?.needsCompletion ?? false;
+        emit(
+          state.copyWith(
+            loading: false,
+            successGoogleAuth: true,
+            needsCompletion: needsCompletion,
+            tempToken: needsCompletion ? r.data?.tempToken : null,
+            googleName: needsCompletion ? r.data?.name : null,
+            googleEmail: needsCompletion ? r.data?.email : null,
+            alert: null,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onPostCompleteProfile(
+    _PostCompleteProfile event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        loading: true,
+        successGoogleAuth: false,
+        needsCompletion: false,
+        alert: null,
+        message: null,
+      ),
+    );
+
+    final result = await _authRepositories.postCompleteProfile(
+      tempToken: event.tempToken,
+      phone: event.phone,
+      name: event.name,
+    );
+
+    result.fold(
+      (f) => emit(
+        state.copyWith(
+          loading: false,
+          message: f.message,
+          alert: Alert.fromFailures(f),
+        ),
+      ),
+      (r) => emit(
+        state.copyWith(
+          loading: false,
+          successGoogleAuth: true,
+          needsCompletion: false,
+          alert: null,
+        ),
+      ),
+    );
   }
 }

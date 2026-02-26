@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:happyfinance_mobile/domains/auth/google/complete_profile_response.dart';
+import 'package:happyfinance_mobile/domains/auth/google/google_auth_response.dart';
 import 'package:happyfinance_mobile/domains/auth/hive/auth_data_hive.dart';
 import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/datasources/auth_local_datasource.dart';
@@ -17,17 +22,16 @@ abstract class IAuthRepositories {
     required String deviceType,
     required String fcmToken,
   });
-  // Future<Either<ServerFailures, RegisterResponse>> postRegister({
-  //   required String username,
-  //   required String email,
-  //   required String phone,
-  //   required String password,
-  //   required String latitude,
-  //   required String longitude,
-  //   required String uuidDevice,
-  //   required String platform,
-  //   required String fcmToken,
-  //   required String isRule,
-  //   required String country,
-  // });
+
+  Future<Either<ServerFailures, GoogleAuthResponse>> postGoogleAuth({
+    required String uuidDevice,
+    String? fcmToken,
+    String? deviceType,
+  });
+
+  Future<Either<ServerFailures, CompleteProfileResponse>> postCompleteProfile({
+    required String tempToken,
+    required String phone,
+    String? name,
+  });
 }

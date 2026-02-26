@@ -39,17 +39,17 @@ Map<String, dynamic> _$DataToJson(_Data instance) => <String, dynamic>{
 };
 
 _Token _$TokenFromJson(Map<String, dynamic> json) => _Token(
-  accessToken: json['accessToken'] as String?,
-  refreshToken: json['refreshToken'] as String?,
-  tokenType: json['tokenType'] as String?,
-  expiresIn: (json['expiresIn'] as num?)?.toInt(),
+  accessToken: json['access_token'] as String?,
+  refreshToken: json['refresh_token'] as String?,
+  tokenType: json['token_type'] as String?,
+  expiresIn: (json['expires_in'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$TokenToJson(_Token instance) => <String, dynamic>{
-  'accessToken': instance.accessToken,
-  'refreshToken': instance.refreshToken,
-  'tokenType': instance.tokenType,
-  'expiresIn': instance.expiresIn,
+  'access_token': instance.accessToken,
+  'refresh_token': instance.refreshToken,
+  'token_type': instance.tokenType,
+  'expires_in': instance.expiresIn,
 };
 
 _User _$UserFromJson(Map<String, dynamic> json) => _User(
@@ -57,11 +57,11 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   name: json['name'] as String?,
   email: json['email'] as String?,
   avatar: json['avatar'],
-  defaultMode: json['defaultMode'] as String?,
-  isPremium: json['isPremium'] as bool?,
-  lastLoginAt: json['lastLoginAt'] == null
+  defaultMode: json['default_mode'] as String?,
+  isPremium: json['is_premium'] as bool?,
+  lastLoginAt: json['last_login_at'] == null
       ? null
-      : DateTime.parse(json['lastLoginAt'] as String),
+      : DateTime.parse(json['last_login_at'] as String),
 );
 
 Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
@@ -69,7 +69,7 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
   'name': instance.name,
   'email': instance.email,
   'avatar': instance.avatar,
-  'defaultMode': instance.defaultMode,
-  'isPremium': instance.isPremium,
-  'lastLoginAt': instance.lastLoginAt?.toIso8601String(),
+  'default_mode': instance.defaultMode,
+  'is_premium': instance.isPremium,
+  'last_login_at': instance.lastLoginAt?.toIso8601String(),
 };

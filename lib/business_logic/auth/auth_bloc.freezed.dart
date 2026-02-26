@@ -55,14 +55,16 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _Postlogin value)?  postlogin,TResult Function( _PostRegister value)?  postRegister,TResult Function( _PostForgotPassword value)?  postForgotPassword,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Started value)?  started,TResult Function( _Postlogin value)?  postlogin,TResult Function( _PostRegister value)?  postRegister,TResult Function( _PostForgotPassword value)?  postForgotPassword,TResult Function( _PostGoogleAuth value)?  postGoogleAuth,TResult Function( _PostCompleteProfile value)?  postCompleteProfile,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _Postlogin() when postlogin != null:
 return postlogin(_that);case _PostRegister() when postRegister != null:
 return postRegister(_that);case _PostForgotPassword() when postForgotPassword != null:
-return postForgotPassword(_that);case _:
+return postForgotPassword(_that);case _PostGoogleAuth() when postGoogleAuth != null:
+return postGoogleAuth(_that);case _PostCompleteProfile() when postCompleteProfile != null:
+return postCompleteProfile(_that);case _:
   return orElse();
 
 }
@@ -80,14 +82,16 @@ return postForgotPassword(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _Postlogin value)  postlogin,required TResult Function( _PostRegister value)  postRegister,required TResult Function( _PostForgotPassword value)  postForgotPassword,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Started value)  started,required TResult Function( _Postlogin value)  postlogin,required TResult Function( _PostRegister value)  postRegister,required TResult Function( _PostForgotPassword value)  postForgotPassword,required TResult Function( _PostGoogleAuth value)  postGoogleAuth,required TResult Function( _PostCompleteProfile value)  postCompleteProfile,}){
 final _that = this;
 switch (_that) {
 case _Started():
 return started(_that);case _Postlogin():
 return postlogin(_that);case _PostRegister():
 return postRegister(_that);case _PostForgotPassword():
-return postForgotPassword(_that);case _:
+return postForgotPassword(_that);case _PostGoogleAuth():
+return postGoogleAuth(_that);case _PostCompleteProfile():
+return postCompleteProfile(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -104,14 +108,16 @@ return postForgotPassword(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _Postlogin value)?  postlogin,TResult? Function( _PostRegister value)?  postRegister,TResult? Function( _PostForgotPassword value)?  postForgotPassword,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Started value)?  started,TResult? Function( _Postlogin value)?  postlogin,TResult? Function( _PostRegister value)?  postRegister,TResult? Function( _PostForgotPassword value)?  postForgotPassword,TResult? Function( _PostGoogleAuth value)?  postGoogleAuth,TResult? Function( _PostCompleteProfile value)?  postCompleteProfile,}){
 final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started(_that);case _Postlogin() when postlogin != null:
 return postlogin(_that);case _PostRegister() when postRegister != null:
 return postRegister(_that);case _PostForgotPassword() when postForgotPassword != null:
-return postForgotPassword(_that);case _:
+return postForgotPassword(_that);case _PostGoogleAuth() when postGoogleAuth != null:
+return postGoogleAuth(_that);case _PostCompleteProfile() when postCompleteProfile != null:
+return postCompleteProfile(_that);case _:
   return null;
 
 }
@@ -128,13 +134,15 @@ return postForgotPassword(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,TResult Function( String uuidDevice,  String? fcmToken,  String? deviceType)?  postGoogleAuth,TResult Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
 return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
-return postForgotPassword(_that.email);case _:
+return postForgotPassword(_that.email);case _PostGoogleAuth() when postGoogleAuth != null:
+return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile() when postCompleteProfile != null:
+return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   return orElse();
 
 }
@@ -152,13 +160,15 @@ return postForgotPassword(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String email,  String password,  String deviceType,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String email,  String password,  String deviceType,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,required TResult Function( String uuidDevice,  String? fcmToken,  String? deviceType)  postGoogleAuth,required TResult Function( String tempToken,  String phone,  String? name)  postCompleteProfile,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _Postlogin():
 return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister():
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword():
-return postForgotPassword(_that.email);case _:
+return postForgotPassword(_that.email);case _PostGoogleAuth():
+return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile():
+return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -175,13 +185,15 @@ return postForgotPassword(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,TResult? Function( String uuidDevice,  String? fcmToken,  String? deviceType)?  postGoogleAuth,TResult? Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
 return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
-return postForgotPassword(_that.email);case _:
+return postForgotPassword(_that.email);case _PostGoogleAuth() when postGoogleAuth != null:
+return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile() when postCompleteProfile != null:
+return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   return null;
 
 }
@@ -442,10 +454,149 @@ as String,
 }
 
 /// @nodoc
+
+
+class _PostGoogleAuth implements AuthEvent {
+  const _PostGoogleAuth({required this.uuidDevice, this.fcmToken, this.deviceType});
+  
+
+ final  String uuidDevice;
+ final  String? fcmToken;
+ final  String? deviceType;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PostGoogleAuthCopyWith<_PostGoogleAuth> get copyWith => __$PostGoogleAuthCopyWithImpl<_PostGoogleAuth>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostGoogleAuth&&(identical(other.uuidDevice, uuidDevice) || other.uuidDevice == uuidDevice)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,uuidDevice,fcmToken,deviceType);
+
+@override
+String toString() {
+  return 'AuthEvent.postGoogleAuth(uuidDevice: $uuidDevice, fcmToken: $fcmToken, deviceType: $deviceType)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PostGoogleAuthCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory _$PostGoogleAuthCopyWith(_PostGoogleAuth value, $Res Function(_PostGoogleAuth) _then) = __$PostGoogleAuthCopyWithImpl;
+@useResult
+$Res call({
+ String uuidDevice, String? fcmToken, String? deviceType
+});
+
+
+
+
+}
+/// @nodoc
+class __$PostGoogleAuthCopyWithImpl<$Res>
+    implements _$PostGoogleAuthCopyWith<$Res> {
+  __$PostGoogleAuthCopyWithImpl(this._self, this._then);
+
+  final _PostGoogleAuth _self;
+  final $Res Function(_PostGoogleAuth) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? uuidDevice = null,Object? fcmToken = freezed,Object? deviceType = freezed,}) {
+  return _then(_PostGoogleAuth(
+uuidDevice: null == uuidDevice ? _self.uuidDevice : uuidDevice // ignore: cast_nullable_to_non_nullable
+as String,fcmToken: freezed == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
+as String?,deviceType: freezed == deviceType ? _self.deviceType : deviceType // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _PostCompleteProfile implements AuthEvent {
+  const _PostCompleteProfile({required this.tempToken, required this.phone, this.name});
+  
+
+ final  String tempToken;
+ final  String phone;
+ final  String? name;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PostCompleteProfileCopyWith<_PostCompleteProfile> get copyWith => __$PostCompleteProfileCopyWithImpl<_PostCompleteProfile>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostCompleteProfile&&(identical(other.tempToken, tempToken) || other.tempToken == tempToken)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.name, name) || other.name == name));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,tempToken,phone,name);
+
+@override
+String toString() {
+  return 'AuthEvent.postCompleteProfile(tempToken: $tempToken, phone: $phone, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PostCompleteProfileCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory _$PostCompleteProfileCopyWith(_PostCompleteProfile value, $Res Function(_PostCompleteProfile) _then) = __$PostCompleteProfileCopyWithImpl;
+@useResult
+$Res call({
+ String tempToken, String phone, String? name
+});
+
+
+
+
+}
+/// @nodoc
+class __$PostCompleteProfileCopyWithImpl<$Res>
+    implements _$PostCompleteProfileCopyWith<$Res> {
+  __$PostCompleteProfileCopyWithImpl(this._self, this._then);
+
+  final _PostCompleteProfile _self;
+  final $Res Function(_PostCompleteProfile) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tempToken = null,Object? phone = null,Object? name = freezed,}) {
+  return _then(_PostCompleteProfile(
+tempToken: null == tempToken ? _self.tempToken : tempToken // ignore: cast_nullable_to_non_nullable
+as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$AuthState {
 
- String get email; String get password; String? get message; String? get messageTitle; int? get statusCode; bool get loading; bool get successLogin; bool get successRegister; bool get isValid; LoginResponse? get loginResponse;// required RegisterResponse? registerResponse,
- Alert? get alert;
+ String get email; String get password; String? get message; String? get messageTitle; int? get statusCode; bool get loading; bool get successLogin; bool get successRegister; bool get successGoogleAuth; bool get needsCompletion; String? get tempToken; String? get googleName; String? get googleEmail; bool get isValid; LoginResponse? get loginResponse; Alert? get alert;
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -456,16 +607,16 @@ $AuthStateCopyWith<AuthState> get copyWith => _$AuthStateCopyWithImpl<AuthState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.message, message) || other.message == message)&&(identical(other.messageTitle, messageTitle) || other.messageTitle == messageTitle)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.successLogin, successLogin) || other.successLogin == successLogin)&&(identical(other.successRegister, successRegister) || other.successRegister == successRegister)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.loginResponse, loginResponse) || other.loginResponse == loginResponse)&&(identical(other.alert, alert) || other.alert == alert));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.message, message) || other.message == message)&&(identical(other.messageTitle, messageTitle) || other.messageTitle == messageTitle)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.successLogin, successLogin) || other.successLogin == successLogin)&&(identical(other.successRegister, successRegister) || other.successRegister == successRegister)&&(identical(other.successGoogleAuth, successGoogleAuth) || other.successGoogleAuth == successGoogleAuth)&&(identical(other.needsCompletion, needsCompletion) || other.needsCompletion == needsCompletion)&&(identical(other.tempToken, tempToken) || other.tempToken == tempToken)&&(identical(other.googleName, googleName) || other.googleName == googleName)&&(identical(other.googleEmail, googleEmail) || other.googleEmail == googleEmail)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.loginResponse, loginResponse) || other.loginResponse == loginResponse)&&(identical(other.alert, alert) || other.alert == alert));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,message,messageTitle,statusCode,loading,successLogin,successRegister,isValid,loginResponse,alert);
+int get hashCode => Object.hash(runtimeType,email,password,message,messageTitle,statusCode,loading,successLogin,successRegister,successGoogleAuth,needsCompletion,tempToken,googleName,googleEmail,isValid,loginResponse,alert);
 
 @override
 String toString() {
-  return 'AuthState(email: $email, password: $password, message: $message, messageTitle: $messageTitle, statusCode: $statusCode, loading: $loading, successLogin: $successLogin, successRegister: $successRegister, isValid: $isValid, loginResponse: $loginResponse, alert: $alert)';
+  return 'AuthState(email: $email, password: $password, message: $message, messageTitle: $messageTitle, statusCode: $statusCode, loading: $loading, successLogin: $successLogin, successRegister: $successRegister, successGoogleAuth: $successGoogleAuth, needsCompletion: $needsCompletion, tempToken: $tempToken, googleName: $googleName, googleEmail: $googleEmail, isValid: $isValid, loginResponse: $loginResponse, alert: $alert)';
 }
 
 
@@ -476,7 +627,7 @@ abstract mixin class $AuthStateCopyWith<$Res>  {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) _then) = _$AuthStateCopyWithImpl;
 @useResult
 $Res call({
- String email, String password, String? message, String? messageTitle, int? statusCode, bool loading, bool successLogin, bool successRegister, bool isValid, LoginResponse? loginResponse, Alert? alert
+ String email, String password, String? message, String? messageTitle, int? statusCode, bool loading, bool successLogin, bool successRegister, bool successGoogleAuth, bool needsCompletion, String? tempToken, String? googleName, String? googleEmail, bool isValid, LoginResponse? loginResponse, Alert? alert
 });
 
 
@@ -493,7 +644,7 @@ class _$AuthStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? message = freezed,Object? messageTitle = freezed,Object? statusCode = freezed,Object? loading = null,Object? successLogin = null,Object? successRegister = null,Object? isValid = null,Object? loginResponse = freezed,Object? alert = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? message = freezed,Object? messageTitle = freezed,Object? statusCode = freezed,Object? loading = null,Object? successLogin = null,Object? successRegister = null,Object? successGoogleAuth = null,Object? needsCompletion = null,Object? tempToken = freezed,Object? googleName = freezed,Object? googleEmail = freezed,Object? isValid = null,Object? loginResponse = freezed,Object? alert = freezed,}) {
   return _then(_self.copyWith(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
@@ -503,7 +654,12 @@ as String?,statusCode: freezed == statusCode ? _self.statusCode : statusCode // 
 as int?,loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
 as bool,successLogin: null == successLogin ? _self.successLogin : successLogin // ignore: cast_nullable_to_non_nullable
 as bool,successRegister: null == successRegister ? _self.successRegister : successRegister // ignore: cast_nullable_to_non_nullable
-as bool,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,successGoogleAuth: null == successGoogleAuth ? _self.successGoogleAuth : successGoogleAuth // ignore: cast_nullable_to_non_nullable
+as bool,needsCompletion: null == needsCompletion ? _self.needsCompletion : needsCompletion // ignore: cast_nullable_to_non_nullable
+as bool,tempToken: freezed == tempToken ? _self.tempToken : tempToken // ignore: cast_nullable_to_non_nullable
+as String?,googleName: freezed == googleName ? _self.googleName : googleName // ignore: cast_nullable_to_non_nullable
+as String?,googleEmail: freezed == googleEmail ? _self.googleEmail : googleEmail // ignore: cast_nullable_to_non_nullable
+as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,loginResponse: freezed == loginResponse ? _self.loginResponse : loginResponse // ignore: cast_nullable_to_non_nullable
 as LoginResponse?,alert: freezed == alert ? _self.alert : alert // ignore: cast_nullable_to_non_nullable
 as Alert?,
@@ -603,10 +759,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool successGoogleAuth,  bool needsCompletion,  String? tempToken,  String? googleName,  String? googleEmail,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when $default != null:
-return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.isValid,_that.loginResponse,_that.alert);case _:
+return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.successGoogleAuth,_that.needsCompletion,_that.tempToken,_that.googleName,_that.googleEmail,_that.isValid,_that.loginResponse,_that.alert);case _:
   return orElse();
 
 }
@@ -624,10 +780,10 @@ return $default(_that.email,_that.password,_that.message,_that.messageTitle,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool successGoogleAuth,  bool needsCompletion,  String? tempToken,  String? googleName,  String? googleEmail,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)  $default,) {final _that = this;
 switch (_that) {
 case _Initial():
-return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.isValid,_that.loginResponse,_that.alert);case _:
+return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.successGoogleAuth,_that.needsCompletion,_that.tempToken,_that.googleName,_that.googleEmail,_that.isValid,_that.loginResponse,_that.alert);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -644,10 +800,10 @@ return $default(_that.email,_that.password,_that.message,_that.messageTitle,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String? message,  String? messageTitle,  int? statusCode,  bool loading,  bool successLogin,  bool successRegister,  bool successGoogleAuth,  bool needsCompletion,  String? tempToken,  String? googleName,  String? googleEmail,  bool isValid,  LoginResponse? loginResponse,  Alert? alert)?  $default,) {final _that = this;
 switch (_that) {
 case _Initial() when $default != null:
-return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.isValid,_that.loginResponse,_that.alert);case _:
+return $default(_that.email,_that.password,_that.message,_that.messageTitle,_that.statusCode,_that.loading,_that.successLogin,_that.successRegister,_that.successGoogleAuth,_that.needsCompletion,_that.tempToken,_that.googleName,_that.googleEmail,_that.isValid,_that.loginResponse,_that.alert);case _:
   return null;
 
 }
@@ -659,7 +815,7 @@ return $default(_that.email,_that.password,_that.message,_that.messageTitle,_tha
 
 
 class _Initial implements AuthState {
-  const _Initial({required this.email, required this.password, required this.message, required this.messageTitle, required this.statusCode, required this.loading, required this.successLogin, required this.successRegister, required this.isValid, required this.loginResponse, required this.alert});
+  const _Initial({required this.email, required this.password, required this.message, required this.messageTitle, required this.statusCode, required this.loading, required this.successLogin, required this.successRegister, required this.successGoogleAuth, required this.needsCompletion, required this.tempToken, required this.googleName, required this.googleEmail, required this.isValid, required this.loginResponse, required this.alert});
   
 
 @override final  String email;
@@ -670,9 +826,13 @@ class _Initial implements AuthState {
 @override final  bool loading;
 @override final  bool successLogin;
 @override final  bool successRegister;
+@override final  bool successGoogleAuth;
+@override final  bool needsCompletion;
+@override final  String? tempToken;
+@override final  String? googleName;
+@override final  String? googleEmail;
 @override final  bool isValid;
 @override final  LoginResponse? loginResponse;
-// required RegisterResponse? registerResponse,
 @override final  Alert? alert;
 
 /// Create a copy of AuthState
@@ -685,16 +845,16 @@ _$InitialCopyWith<_Initial> get copyWith => __$InitialCopyWithImpl<_Initial>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.message, message) || other.message == message)&&(identical(other.messageTitle, messageTitle) || other.messageTitle == messageTitle)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.successLogin, successLogin) || other.successLogin == successLogin)&&(identical(other.successRegister, successRegister) || other.successRegister == successRegister)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.loginResponse, loginResponse) || other.loginResponse == loginResponse)&&(identical(other.alert, alert) || other.alert == alert));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.message, message) || other.message == message)&&(identical(other.messageTitle, messageTitle) || other.messageTitle == messageTitle)&&(identical(other.statusCode, statusCode) || other.statusCode == statusCode)&&(identical(other.loading, loading) || other.loading == loading)&&(identical(other.successLogin, successLogin) || other.successLogin == successLogin)&&(identical(other.successRegister, successRegister) || other.successRegister == successRegister)&&(identical(other.successGoogleAuth, successGoogleAuth) || other.successGoogleAuth == successGoogleAuth)&&(identical(other.needsCompletion, needsCompletion) || other.needsCompletion == needsCompletion)&&(identical(other.tempToken, tempToken) || other.tempToken == tempToken)&&(identical(other.googleName, googleName) || other.googleName == googleName)&&(identical(other.googleEmail, googleEmail) || other.googleEmail == googleEmail)&&(identical(other.isValid, isValid) || other.isValid == isValid)&&(identical(other.loginResponse, loginResponse) || other.loginResponse == loginResponse)&&(identical(other.alert, alert) || other.alert == alert));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,message,messageTitle,statusCode,loading,successLogin,successRegister,isValid,loginResponse,alert);
+int get hashCode => Object.hash(runtimeType,email,password,message,messageTitle,statusCode,loading,successLogin,successRegister,successGoogleAuth,needsCompletion,tempToken,googleName,googleEmail,isValid,loginResponse,alert);
 
 @override
 String toString() {
-  return 'AuthState(email: $email, password: $password, message: $message, messageTitle: $messageTitle, statusCode: $statusCode, loading: $loading, successLogin: $successLogin, successRegister: $successRegister, isValid: $isValid, loginResponse: $loginResponse, alert: $alert)';
+  return 'AuthState(email: $email, password: $password, message: $message, messageTitle: $messageTitle, statusCode: $statusCode, loading: $loading, successLogin: $successLogin, successRegister: $successRegister, successGoogleAuth: $successGoogleAuth, needsCompletion: $needsCompletion, tempToken: $tempToken, googleName: $googleName, googleEmail: $googleEmail, isValid: $isValid, loginResponse: $loginResponse, alert: $alert)';
 }
 
 
@@ -705,7 +865,7 @@ abstract mixin class _$InitialCopyWith<$Res> implements $AuthStateCopyWith<$Res>
   factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) _then) = __$InitialCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, String? message, String? messageTitle, int? statusCode, bool loading, bool successLogin, bool successRegister, bool isValid, LoginResponse? loginResponse, Alert? alert
+ String email, String password, String? message, String? messageTitle, int? statusCode, bool loading, bool successLogin, bool successRegister, bool successGoogleAuth, bool needsCompletion, String? tempToken, String? googleName, String? googleEmail, bool isValid, LoginResponse? loginResponse, Alert? alert
 });
 
 
@@ -722,7 +882,7 @@ class __$InitialCopyWithImpl<$Res>
 
 /// Create a copy of AuthState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? message = freezed,Object? messageTitle = freezed,Object? statusCode = freezed,Object? loading = null,Object? successLogin = null,Object? successRegister = null,Object? isValid = null,Object? loginResponse = freezed,Object? alert = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? message = freezed,Object? messageTitle = freezed,Object? statusCode = freezed,Object? loading = null,Object? successLogin = null,Object? successRegister = null,Object? successGoogleAuth = null,Object? needsCompletion = null,Object? tempToken = freezed,Object? googleName = freezed,Object? googleEmail = freezed,Object? isValid = null,Object? loginResponse = freezed,Object? alert = freezed,}) {
   return _then(_Initial(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
@@ -732,7 +892,12 @@ as String?,statusCode: freezed == statusCode ? _self.statusCode : statusCode // 
 as int?,loading: null == loading ? _self.loading : loading // ignore: cast_nullable_to_non_nullable
 as bool,successLogin: null == successLogin ? _self.successLogin : successLogin // ignore: cast_nullable_to_non_nullable
 as bool,successRegister: null == successRegister ? _self.successRegister : successRegister // ignore: cast_nullable_to_non_nullable
-as bool,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
+as bool,successGoogleAuth: null == successGoogleAuth ? _self.successGoogleAuth : successGoogleAuth // ignore: cast_nullable_to_non_nullable
+as bool,needsCompletion: null == needsCompletion ? _self.needsCompletion : needsCompletion // ignore: cast_nullable_to_non_nullable
+as bool,tempToken: freezed == tempToken ? _self.tempToken : tempToken // ignore: cast_nullable_to_non_nullable
+as String?,googleName: freezed == googleName ? _self.googleName : googleName // ignore: cast_nullable_to_non_nullable
+as String?,googleEmail: freezed == googleEmail ? _self.googleEmail : googleEmail // ignore: cast_nullable_to_non_nullable
+as String?,isValid: null == isValid ? _self.isValid : isValid // ignore: cast_nullable_to_non_nullable
 as bool,loginResponse: freezed == loginResponse ? _self.loginResponse : loginResponse // ignore: cast_nullable_to_non_nullable
 as LoginResponse?,alert: freezed == alert ? _self.alert : alert // ignore: cast_nullable_to_non_nullable
 as Alert?,

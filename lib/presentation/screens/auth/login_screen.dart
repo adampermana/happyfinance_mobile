@@ -32,7 +32,8 @@ class LoginScreen extends HookWidget {
               p.loading != c.loading ||
               p.message != c.message ||
               p.successLogin != c.successLogin ||
-              p.successRegister != c.successRegister,
+              p.successRegister != c.successRegister ||
+              p.successGoogleAuth != c.successGoogleAuth,
           listener: (ctx, state) {
             if (state.loading) {
               LoadingOverlay.show(ctx);
@@ -47,6 +48,23 @@ class LoginScreen extends HookWidget {
                 ctx.read<AuthAccountBloc>().add(
                   const AuthAccountEvent.checkAuthStatus(),
                 );
+              } else if (state.successGoogleAuth) {
+                if (state.needsCompletion) {
+                  // User baru — navigasi ke complete profile
+                  ctx.push(
+                    RoutePath.completeProfilePath,
+                    extra: {
+                      'tempToken': state.tempToken,
+                      'name': state.googleName,
+                      'email': state.googleEmail,
+                    },
+                  );
+                } else {
+                  // User sudah ada — langsung masuk
+                  ctx.read<AuthAccountBloc>().add(
+                    const AuthAccountEvent.checkAuthStatus(),
+                  );
+                }
               } else if (state.successRegister) {
                 ScaffoldMessenger.of(ctx).showSnackBar(
                   CustomSnackBar.success(
@@ -55,7 +73,7 @@ class LoginScreen extends HookWidget {
                 );
 
                 // showOtpDialog(ctx);
-              } else {
+              } else if (state.message != null) {
                 ScaffoldMessenger.of(ctx).showSnackBar(
                   CustomSnackBar.failure(
                     message: state.message ?? 'Opps, something went wrong',
@@ -238,7 +256,15 @@ class LoginScreen extends HookWidget {
                       shadowColor: ColorPalette.kBlack,
                       elevation: 4,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          context.read<AuthBloc>().add(
+                            const AuthEvent.postGoogleAuth(
+                              uuidDevice:
+                                  'device-uuid-123', // TODO: pakai device ID yang sesungguhnya
+                              deviceType: 'android',
+                            ),
+                          );
+                        },
                         borderRadius: BorderRadius.circular(12),
                         child: const SizedBox(
                           width: 54,

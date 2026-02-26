@@ -49,46 +49,109 @@ class AuthRepositories implements IAuthRepositories {
     }
   }
 
-  // @override
-  // Future<Either<ServerFailures, RegisterResponse>> postRegister({
-  //   required String username,
-  //   required String email,
-  //   required String phone,
-  //   required String password,
-  //   required String latitude,
-  //   required String longitude,
-  //   required String uuidDevice,
-  //   required String platform,
-  //   required String fcmToken,
-  //   required String isRule,
-  //   required String country,
-  // }) async {
-  //   try {
-  //     final response = await _remoteDatasource.postRegister(
-  //       username: username,
-  //       email: email,
-  //       phone: phone,
-  //       password: password,
-  //       latitude: latitude,
-  //       longitude: longitude,
-  //       uuidDevice: uuidDevice,
-  //       platform: platform,
-  //       fcmToken: fcmToken,
-  //       isRule: isRule,
-  //       country: country,
-  //     );
-  //     return Right(response);
-  //   } on ServerFailures catch (e) {
-  //     return Left(
-  //       ServerFailures(
-  //         statusCode: e.statusCode,
-  //         title: e.title,
-  //         message: e.message,
-  //         requiresVerification: e.requiresVerification,
-  //         email: e.email,
-  //         phone: e.phone,
-  //       ),
-  //     );
-  //   }
-  // }
+  @override
+  Future<Either<ServerFailures, GoogleAuthResponse>> postGoogleAuth({
+    required String uuidDevice,
+    String? fcmToken,
+    String? deviceType,
+  }) async {
+    try {
+      // Dapatkan idToken dari Google Sign-In
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final idToken = googleUser.authentication.idToken;
+
+      if (idToken == null) {
+        return const Left(
+          ServerFailures(
+            statusCode: -1,
+            title: 'Google Sign-In',
+            message: 'Gagal mendapatkan token Google. Silakan coba lagi.',
+          ),
+        );
+      }
+
+      final response = await _remoteDatasource.postGoogleAuth(
+        idToken: idToken,
+        uuidDevice: uuidDevice,
+        fcmToken: fcmToken,
+        deviceType: deviceType,
+      );
+      // Jika backend langsung return JWT (tidak perlu complete-profile)
+      final token = response.data?.token;
+      if (token != null && !(response.data?.needsCompletion ?? false)) {
+        await _localDatasource.saveAuth(
+          AuthDataHive(
+            accessToken: token.accessToken,
+            refreshToken: token.refreshToken,
+            expiresIn: token.expiresIn,
+            tokenType: token.tokenType,
+          ),
+        );
+      }
+      return Right(response);
+    } on GoogleSignInException catch (e) {
+      log(
+        '[GoogleSignIn] ERROR — code: ${e.code}, description: ${e.description}',
+      );
+      return Left(
+        ServerFailures(
+          statusCode: -1,
+          title: 'Google Sign-In',
+          message: e.code == GoogleSignInExceptionCode.canceled
+              ? 'Login dibatalkan.'
+              : 'Login dengan Google gagal. Silakan coba lagi.',
+        ),
+      );
+    } on ServerFailures catch (e) {
+      return Left(
+        ServerFailures(
+          statusCode: e.statusCode,
+          title: e.title,
+          message: e.message,
+          requiresVerification: e.requiresVerification,
+          email: e.email,
+          phone: e.phone,
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ServerFailures, CompleteProfileResponse>> postCompleteProfile({
+    required String tempToken,
+    required String phone,
+    String? name,
+  }) async {
+    try {
+      final response = await _remoteDatasource.postCompleteProfile(
+        tempToken: tempToken,
+        phone: phone,
+        name: name,
+      );
+      // Simpan JWT final ke Hive
+      final token = response.data?.token;
+      if (token != null) {
+        await _localDatasource.saveAuth(
+          AuthDataHive(
+            accessToken: token.accessToken,
+            refreshToken: token.refreshToken,
+            expiresIn: token.expiresIn,
+            tokenType: token.tokenType,
+          ),
+        );
+      }
+      return Right(response);
+    } on ServerFailures catch (e) {
+      return Left(
+        ServerFailures(
+          statusCode: e.statusCode,
+          title: e.title,
+          message: e.message,
+          requiresVerification: e.requiresVerification,
+          email: e.email,
+          phone: e.phone,
+        ),
+      );
+    }
+  }
 }

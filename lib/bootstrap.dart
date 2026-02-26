@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:happyfinance_mobile/domains/env/env_model.dart';
 import 'package:happyfinance_mobile/firebase_options.dart';
 import 'package:happyfinance_mobile/infrastructure/core/api/happy_http_overrides.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
@@ -39,7 +41,7 @@ class AppBlocObserver extends BlocObserver {
 
 Future<void> bootstrap(
   FutureOr<Widget> Function() builder,
-  // BuildFlavor flavor,
+  BuildFlavor flavor,
 ) async {
   try {
     await HttpOverrides.runWithHttpOverrides(() async {
@@ -47,7 +49,7 @@ Future<void> bootstrap(
       WidgetsFlutterBinding.ensureInitialized();
 
       // Initialize environment configuration
-      // await Env.init(flavor);
+      await Env.init(flavor);
 
       // Initialize Firebase
       await Firebase.initializeApp(
@@ -61,6 +63,12 @@ Future<void> bootstrap(
 
       // Inject classes & dependencies
       await initApp();
+
+      // Initialize Google Sign-In (singleton — harus dipanggil tepat sekali)
+      // serverClientId: Web Client ID (type 3) dari Firebase Console
+      await GoogleSignIn.instance.initialize(
+        serverClientId: Env.googleServerClientId,
+      );
 
       // Setup BLoC observer for debugging
       if (kDebugMode) Bloc.observer = const AppBlocObserver();
