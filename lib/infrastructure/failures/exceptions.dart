@@ -25,7 +25,7 @@ class ServerException extends ServerFailures implements Exception {
     var code = defaultErrorCode;
     var title = '';
     var message = '';
-    var email = '';
+    const email = '';
 
     switch (error.type) {
       case DioExceptionType.cancel:

@@ -14,7 +14,6 @@ import 'package:happyfinance_mobile/local_data_storage.dart';
 
 final GetIt sl = GetIt.instance;
 Future<void> initApp() async {
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initHiveStorage();
   await _initCoreFeature();
   await _initL10nFeature();
@@ -23,11 +22,8 @@ Future<void> initApp() async {
 
 Future<void> _initCoreFeature() async {
   sl
-    // ..registerLazySingleton<IThemeLocalDatasource>(HiveThemeLocalDatasource.new)
     ..registerFactory(NetworkConnectionBloc.new)
     ..registerLazySingleton(DioApi.init);
-  // ..registerFactory<MultiScreenBloc>(MultiScreenBloc.new)
-  // ..registerFactory<ThemeModeBloc>(() => ThemeModeBloc(sl()))
   // ..registerFactory<DeviceSources>(DeviceSources.new);
 }
 

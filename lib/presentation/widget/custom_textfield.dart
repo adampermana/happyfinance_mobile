@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:happyfinance_mobile/presentation/app/resources/color_palette.dart';
 
 class CustomTextFormFieldWidget extends StatelessWidget {
@@ -160,7 +159,6 @@ class CustomTextFormFieldWidget extends StatelessWidget {
           hintStyle:
               hintStyle ?? TextStyle(color: theme.disabledColor, fontSize: 14),
           prefixIcon: prefixIcon,
-          suffixIcon: null, // set per-call
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12,
             vertical: 14,
@@ -651,7 +649,7 @@ class _CustomEmailFormFieldState extends State<CustomEmailFormField> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    // ── border sesuai desain (sama dengan CustomTextFormFieldWidget) ──────────
+    // ── border sesuai desain (sama dengan CustomTextFormFieldWidget)
     // • enabled/empty      → no border
     // • focused            → border primary (ungu) width 2
     // • error              → border merah width 2
@@ -787,8 +785,8 @@ class _CustomEmailFormFieldState extends State<CustomEmailFormField> {
             // Dengan shadow → pisah input (shadow) dan error text
             return FormField<String>(
               initialValue: _controller.text,
-              validator: (widget.validator ?? _defaultEmailValidator),
-              builder: (FormFieldState<String> state) {
+              validator: widget.validator ?? _defaultEmailValidator,
+              builder: (state) {
                 final hasError = state.hasError;
                 final inputBorder = hasError
                     ? b(theme.colorScheme.error, 2)

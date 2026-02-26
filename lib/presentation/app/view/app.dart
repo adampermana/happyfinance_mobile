@@ -8,7 +8,6 @@ import 'package:happyfinance_mobile/injector.dart';
 import 'package:happyfinance_mobile/l10n/l10n.dart';
 import 'package:happyfinance_mobile/presentation/app/resources/app_theme.dart';
 import 'package:happyfinance_mobile/presentation/routers/router.dart';
-import 'package:happyfinance_mobile/presentation/widget/custom_snackbars.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

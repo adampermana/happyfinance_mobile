@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyfinance_mobile/firebase_options.dart';
 import 'package:happyfinance_mobile/infrastructure/core/api/happy_http_overrides.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
 import 'package:happyfinance_mobile/injector.dart';
@@ -48,9 +50,9 @@ Future<void> bootstrap(
       // await Env.init(flavor);
 
       // Initialize Firebase
-      // await Firebase.initializeApp(
-      //   options: DefaultFirebaseOptions.currentPlatform,
-      // );
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
       // Setup Firebase Messaging background handler
       // FirebaseMessaging.onBackgroundMessage(
