@@ -183,14 +183,12 @@ class RegisterScreen extends HookWidget {
                   height: 54,
                   textButtonSize: 15,
                   textButton: 'DAFTAR',
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState?.validate() ?? false) {
                       // TODO: trigger register event
-                      showOtpDialog(
+                      await showOtpDialog(
                         context,
                         email: 'user@gmail.com', // opsional, tampil di subtitle
-                        length: 4, // jumlah digit OTP
-                        countdownSeconds: 60, // durasi countdown kirim ulang
                         onVerify: (pin) {
                           // handle verifikasi OTP
                         },

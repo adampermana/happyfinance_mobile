@@ -134,14 +134,14 @@ return postCompleteProfile(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,TResult Function( String uuidDevice,  String? fcmToken,  String? deviceType)?  postGoogleAuth,TResult Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  started,TResult Function( String email,  String password,  String fcmToken)?  postlogin,TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult Function( String email)?  postForgotPassword,TResult Function()?  postGoogleAuth,TResult Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
-return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
+return postlogin(_that.email,_that.password,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
 return postForgotPassword(_that.email);case _PostGoogleAuth() when postGoogleAuth != null:
-return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile() when postCompleteProfile != null:
+return postGoogleAuth();case _PostCompleteProfile() when postCompleteProfile != null:
 return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   return orElse();
 
@@ -160,14 +160,14 @@ return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String email,  String password,  String deviceType,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,required TResult Function( String uuidDevice,  String? fcmToken,  String? deviceType)  postGoogleAuth,required TResult Function( String tempToken,  String phone,  String? name)  postCompleteProfile,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  started,required TResult Function( String email,  String password,  String fcmToken)  postlogin,required TResult Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)  postRegister,required TResult Function( String email)  postForgotPassword,required TResult Function()  postGoogleAuth,required TResult Function( String tempToken,  String phone,  String? name)  postCompleteProfile,}) {final _that = this;
 switch (_that) {
 case _Started():
 return started();case _Postlogin():
-return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister():
+return postlogin(_that.email,_that.password,_that.fcmToken);case _PostRegister():
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword():
 return postForgotPassword(_that.email);case _PostGoogleAuth():
-return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile():
+return postGoogleAuth();case _PostCompleteProfile():
 return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   throw StateError('Unexpected subclass');
 
@@ -185,14 +185,14 @@ return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String email,  String password,  String deviceType,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,TResult? Function( String uuidDevice,  String? fcmToken,  String? deviceType)?  postGoogleAuth,TResult? Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  started,TResult? Function( String email,  String password,  String fcmToken)?  postlogin,TResult? Function( String username,  String email,  String phone,  String password,  String latitude,  String longitude,  String fcmToken,  String isRule,  String country)?  postRegister,TResult? Function( String email)?  postForgotPassword,TResult? Function()?  postGoogleAuth,TResult? Function( String tempToken,  String phone,  String? name)?  postCompleteProfile,}) {final _that = this;
 switch (_that) {
 case _Started() when started != null:
 return started();case _Postlogin() when postlogin != null:
-return postlogin(_that.email,_that.password,_that.deviceType,_that.fcmToken);case _PostRegister() when postRegister != null:
+return postlogin(_that.email,_that.password,_that.fcmToken);case _PostRegister() when postRegister != null:
 return postRegister(_that.username,_that.email,_that.phone,_that.password,_that.latitude,_that.longitude,_that.fcmToken,_that.isRule,_that.country);case _PostForgotPassword() when postForgotPassword != null:
 return postForgotPassword(_that.email);case _PostGoogleAuth() when postGoogleAuth != null:
-return postGoogleAuth(_that.uuidDevice,_that.fcmToken,_that.deviceType);case _PostCompleteProfile() when postCompleteProfile != null:
+return postGoogleAuth();case _PostCompleteProfile() when postCompleteProfile != null:
 return postCompleteProfile(_that.tempToken,_that.phone,_that.name);case _:
   return null;
 
@@ -237,12 +237,12 @@ String toString() {
 
 
 class _Postlogin implements AuthEvent {
-  const _Postlogin({required this.email, required this.password, required this.deviceType, required this.fcmToken});
+  const _Postlogin({required this.email, required this.password, required this.fcmToken});
   
 
  final  String email;
  final  String password;
- final  String deviceType;
+// required String deviceType,
  final  String fcmToken;
 
 /// Create a copy of AuthEvent
@@ -255,16 +255,16 @@ _$PostloginCopyWith<_Postlogin> get copyWith => __$PostloginCopyWithImpl<_Postlo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Postlogin&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Postlogin&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,deviceType,fcmToken);
+int get hashCode => Object.hash(runtimeType,email,password,fcmToken);
 
 @override
 String toString() {
-  return 'AuthEvent.postlogin(email: $email, password: $password, deviceType: $deviceType, fcmToken: $fcmToken)';
+  return 'AuthEvent.postlogin(email: $email, password: $password, fcmToken: $fcmToken)';
 }
 
 
@@ -275,7 +275,7 @@ abstract mixin class _$PostloginCopyWith<$Res> implements $AuthEventCopyWith<$Re
   factory _$PostloginCopyWith(_Postlogin value, $Res Function(_Postlogin) _then) = __$PostloginCopyWithImpl;
 @useResult
 $Res call({
- String email, String password, String deviceType, String fcmToken
+ String email, String password, String fcmToken
 });
 
 
@@ -292,11 +292,10 @@ class __$PostloginCopyWithImpl<$Res>
 
 /// Create a copy of AuthEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? deviceType = null,Object? fcmToken = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? fcmToken = null,}) {
   return _then(_Postlogin(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,deviceType: null == deviceType ? _self.deviceType : deviceType // ignore: cast_nullable_to_non_nullable
 as String,fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -457,71 +456,33 @@ as String,
 
 
 class _PostGoogleAuth implements AuthEvent {
-  const _PostGoogleAuth({required this.uuidDevice, this.fcmToken, this.deviceType});
+  const _PostGoogleAuth();
   
 
- final  String uuidDevice;
- final  String? fcmToken;
- final  String? deviceType;
 
-/// Create a copy of AuthEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$PostGoogleAuthCopyWith<_PostGoogleAuth> get copyWith => __$PostGoogleAuthCopyWithImpl<_PostGoogleAuth>(this, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostGoogleAuth&&(identical(other.uuidDevice, uuidDevice) || other.uuidDevice == uuidDevice)&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostGoogleAuth);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,uuidDevice,fcmToken,deviceType);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthEvent.postGoogleAuth(uuidDevice: $uuidDevice, fcmToken: $fcmToken, deviceType: $deviceType)';
+  return 'AuthEvent.postGoogleAuth()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$PostGoogleAuthCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
-  factory _$PostGoogleAuthCopyWith(_PostGoogleAuth value, $Res Function(_PostGoogleAuth) _then) = __$PostGoogleAuthCopyWithImpl;
-@useResult
-$Res call({
- String uuidDevice, String? fcmToken, String? deviceType
-});
 
 
-
-
-}
-/// @nodoc
-class __$PostGoogleAuthCopyWithImpl<$Res>
-    implements _$PostGoogleAuthCopyWith<$Res> {
-  __$PostGoogleAuthCopyWithImpl(this._self, this._then);
-
-  final _PostGoogleAuth _self;
-  final $Res Function(_PostGoogleAuth) _then;
-
-/// Create a copy of AuthEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? uuidDevice = null,Object? fcmToken = freezed,Object? deviceType = freezed,}) {
-  return _then(_PostGoogleAuth(
-uuidDevice: null == uuidDevice ? _self.uuidDevice : uuidDevice // ignore: cast_nullable_to_non_nullable
-as String,fcmToken: freezed == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
-as String?,deviceType: freezed == deviceType ? _self.deviceType : deviceType // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

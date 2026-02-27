@@ -25,7 +25,7 @@ class LoggingInterceptor extends Interceptor {
     });
 
     debugPrint(
-      '┌-----------------------------------------------------------------------',
+      '┌----------------------------------------------------------------------',
     );
     debugPrint('| [DIO] Request: ${options.method} ${options.uri} ');
     debugPrint('| Headers:\n$headers');

@@ -5,13 +5,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/repositories/i_auth_repositories.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/alert.dart';
+import 'package:happyfinance_mobile/infrastructure/services/device_info_service.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(this._authRepositories) : super(AuthState.initial()) {
+  AuthBloc(this._authRepositories, this._deviceInfoService)
+    : super(AuthState.initial()) {
     on<_Started>(_onStarted);
     on<_Postlogin>(_onPostlogin);
     on<_PostRegister>(_onPostRegister);
@@ -21,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   final IAuthRepositories _authRepositories;
+  final DeviceInfoService _deviceInfoService;
 
   Future<void> _onStarted(_Started event, Emitter<AuthState> emit) async {}
 
@@ -33,12 +36,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         message: null,
       ),
     );
+    // Device info
+    final device = await _deviceInfoService.deviceInfo();
 
     final result = await _authRepositories.postLogin(
       email: event.email,
       password: event.password,
-      uuidDevice: '211212d',
-      deviceType: event.deviceType,
+      uuidDevice: device.deviceId,
+      deviceType: device.platform,
       fcmToken: event.fcmToken,
     );
 
@@ -109,10 +114,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
 
+    // Device info
+    final device = await _deviceInfoService.deviceInfo();
+
     final result = await _authRepositories.postGoogleAuth(
-      uuidDevice: event.uuidDevice,
-      fcmToken: event.fcmToken,
-      deviceType: event.deviceType,
+      uuidDevice: device.deviceId,
+      fcmToken: '3232fff',
+      deviceType: device.platform,
     );
 
     result.fold(

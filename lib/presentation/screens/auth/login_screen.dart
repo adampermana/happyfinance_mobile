@@ -210,7 +210,6 @@ class LoginScreen extends HookWidget {
                             AuthEvent.postlogin(
                               email: username.text,
                               password: password.text,
-                              deviceType: 'platform',
                               fcmToken: 'fcmToken',
                             ),
                           );
@@ -258,11 +257,7 @@ class LoginScreen extends HookWidget {
                       child: InkWell(
                         onTap: () {
                           context.read<AuthBloc>().add(
-                            const AuthEvent.postGoogleAuth(
-                              uuidDevice:
-                                  'device-uuid-1234', // TODO: pakai device ID yang sesungguhnya
-                              deviceType: 'android',
-                            ),
+                            const AuthEvent.postGoogleAuth(),
                           );
                         },
                         borderRadius: BorderRadius.circular(12),

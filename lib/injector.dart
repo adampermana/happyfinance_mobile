@@ -10,6 +10,7 @@ import 'package:happyfinance_mobile/infrastructure/auth/repositories/i_auth_repo
 import 'package:happyfinance_mobile/infrastructure/core/api/dio_api.dart';
 import 'package:happyfinance_mobile/infrastructure/core/datasources/i_core_local_datasource.dart';
 import 'package:happyfinance_mobile/infrastructure/core/repositories/i_core_repository.dart';
+import 'package:happyfinance_mobile/infrastructure/services/device_info_service.dart';
 import 'package:happyfinance_mobile/local_data_storage.dart';
 
 final GetIt sl = GetIt.instance;
@@ -23,8 +24,8 @@ Future<void> initApp() async {
 Future<void> _initCoreFeature() async {
   sl
     ..registerFactory(NetworkConnectionBloc.new)
-    ..registerLazySingleton(DioApi.init);
-  // ..registerFactory<DeviceSources>(DeviceSources.new);
+    ..registerLazySingleton(DioApi.init)
+    ..registerFactory<DeviceInfoService>(DeviceInfoService.new);
 }
 
 Future<void> _initL10nFeature() async {
@@ -45,6 +46,6 @@ Future<void> _initAuthFeature() async {
       () => AuthRepositories(sl(), sl()),
     )
     ..registerLazySingleton(() => AuthAccountBloc(sl()))
-    ..registerFactory(() => AuthBloc(sl()));
+    ..registerFactory(() => AuthBloc(sl(), sl()));
   // ..registerFactory(() => LocationBloc(sl()));
 }

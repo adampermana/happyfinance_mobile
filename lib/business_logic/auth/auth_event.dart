@@ -7,7 +7,7 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.postlogin({
     required String email,
     required String password,
-    required String deviceType,
+    // required String deviceType,
     required String fcmToken,
   }) = _Postlogin;
 
@@ -26,11 +26,7 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.postForgotPassword({required String email}) =
       _PostForgotPassword;
 
-  const factory AuthEvent.postGoogleAuth({
-    required String uuidDevice,
-    String? fcmToken,
-    String? deviceType,
-  }) = _PostGoogleAuth;
+  const factory AuthEvent.postGoogleAuth() = _PostGoogleAuth;
 
   const factory AuthEvent.postCompleteProfile({
     required String tempToken,
