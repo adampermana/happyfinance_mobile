@@ -42,8 +42,8 @@ class AuthRemoteDatasource implements IAuthRemoteDatasource {
         data: {
           'id_token': idToken,
           'uuid_device': uuidDevice,
-          'fcm_token': ?fcmToken,
-          'device_type': ?deviceType,
+          if (fcmToken != null) 'fcm_token': fcmToken,
+          if (deviceType != null) 'device_type': deviceType,
         },
       );
       return GoogleAuthResponse.fromJson(response.data!);

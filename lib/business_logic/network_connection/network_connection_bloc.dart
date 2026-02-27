@@ -6,9 +6,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/failures.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
+part 'network_connection_bloc.freezed.dart';
 part 'network_connection_event.dart';
 part 'network_connection_state.dart';
-part 'network_connection_bloc.freezed.dart';
 
 class NetworkConnectionBloc
     extends Bloc<NetworkConnectionEvent, NetworkConnectionState> {

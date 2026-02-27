@@ -9,13 +9,22 @@ import 'package:happyfinance_mobile/domains/env/env_model.dart';
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError('Web platform not configured via env.');
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
         return ios;
+      case TargetPlatform.macOS:
+        return macos;
+      case TargetPlatform.windows:
+        return windows;
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -23,11 +32,22 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static FirebaseOptions get web => FirebaseOptions(
+    apiKey: Env.firebaseWebApiKey,
+    appId: Env.firebaseWebAppId,
+    messagingSenderId: Env.firebaseMessagingSenderId,
+    projectId: Env.firebaseProjectId,
+    authDomain: Env.firebaseAuthDomain,
+    storageBucket: Env.firebaseStorageBucket,
+    measurementId: Env.firebaseWebMeasurementId,
+  );
+
   static FirebaseOptions get android => FirebaseOptions(
     apiKey: Env.firebaseAndroidApiKey,
     appId: Env.firebaseAndroidAppId,
     messagingSenderId: Env.firebaseMessagingSenderId,
     projectId: Env.firebaseProjectId,
+    authDomain: Env.firebaseAuthDomain,
     storageBucket: Env.firebaseStorageBucket,
   );
 
@@ -38,5 +58,24 @@ class DefaultFirebaseOptions {
     projectId: Env.firebaseProjectId,
     storageBucket: Env.firebaseStorageBucket,
     iosBundleId: Env.firebaseIosBundleId,
+  );
+
+  static FirebaseOptions get macos => FirebaseOptions(
+    apiKey: Env.firebaseIosApiKey,
+    appId: Env.firebaseMacosAppId,
+    messagingSenderId: Env.firebaseMessagingSenderId,
+    projectId: Env.firebaseProjectId,
+    storageBucket: Env.firebaseStorageBucket,
+    iosBundleId: Env.firebaseMacosBundleId,
+  );
+
+  static FirebaseOptions get windows => FirebaseOptions(
+    apiKey: Env.firebaseWebApiKey,
+    appId: Env.firebaseWindowsAppId,
+    messagingSenderId: Env.firebaseMessagingSenderId,
+    projectId: Env.firebaseProjectId,
+    authDomain: Env.firebaseAuthDomain,
+    storageBucket: Env.firebaseStorageBucket,
+    measurementId: Env.firebaseWindowsMeasurementId,
   );
 }

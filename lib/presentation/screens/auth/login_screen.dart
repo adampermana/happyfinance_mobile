@@ -34,7 +34,7 @@ class LoginScreen extends HookWidget {
               p.successLogin != c.successLogin ||
               p.successRegister != c.successRegister ||
               p.successGoogleAuth != c.successGoogleAuth,
-          listener: (ctx, state) {
+          listener: (ctx, state) async {
             if (state.loading) {
               LoadingOverlay.show(ctx);
             } else {
@@ -51,7 +51,7 @@ class LoginScreen extends HookWidget {
               } else if (state.successGoogleAuth) {
                 if (state.needsCompletion) {
                   // User baru — navigasi ke complete profile
-                  ctx.push(
+                  await ctx.push(
                     RoutePath.completeProfilePath,
                     extra: {
                       'tempToken': state.tempToken,
@@ -260,7 +260,7 @@ class LoginScreen extends HookWidget {
                           context.read<AuthBloc>().add(
                             const AuthEvent.postGoogleAuth(
                               uuidDevice:
-                                  'device-uuid-123', // TODO: pakai device ID yang sesungguhnya
+                                  'device-uuid-1234', // TODO: pakai device ID yang sesungguhnya
                               deviceType: 'android',
                             ),
                           );

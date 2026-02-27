@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:happyfinance_mobile/domains/env/env_model.dart';
 import 'package:happyfinance_mobile/infrastructure/core/api/dio_interceptors.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioApi {
   static Dio init() {
@@ -17,16 +16,7 @@ class DioApi {
     return Dio(option)
       ..interceptors.addAll([
         RequestInterceptor(),
-        if (kDebugMode)
-          PrettyDioLogger(
-            requestHeader: true,
-            requestBody: true,
-            responseHeader: true,
-            // responseBody: true,
-            // responseHeader: false,
-            // error: true,
-            // compact: true,
-          ),
+        if (kDebugMode) LoggingInterceptor(),
       ]);
   }
 }

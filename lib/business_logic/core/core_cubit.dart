@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:happyfinance_mobile/infrastructure/core/repositories/i_core_repository.dart';
 
-part 'core_state.dart';
 part 'core_cubit.freezed.dart';
+part 'core_state.dart';
 
 class CoreCubit extends Cubit<CoreState> {
   CoreCubit(this._coreRepository) : super(CoreState.initial());

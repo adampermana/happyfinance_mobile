@@ -51,24 +51,23 @@ Future<void> bootstrap(
       // Initialize environment configuration
       await Env.init(flavor);
 
-      // Initialize Firebase
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-
       // Setup Firebase Messaging background handler
       // FirebaseMessaging.onBackgroundMessage(
       //   firebaseMessagingBackgroundHandler,
       // );
 
-      // Inject classes & dependencies
-      await initApp();
-
+      // Initialize Firebase
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
       // Initialize Google Sign-In (singleton — harus dipanggil tepat sekali)
       // serverClientId: Web Client ID (type 3) dari Firebase Console
       await GoogleSignIn.instance.initialize(
         serverClientId: Env.googleServerClientId,
       );
+
+      // Inject classes & dependencies
+      await initApp();
 
       // Setup BLoC observer for debugging
       if (kDebugMode) Bloc.observer = const AppBlocObserver();
@@ -111,7 +110,7 @@ Future<void> bootstrap(
   } finally {
     debugPrint('\x1B[32m');
     debugPrint('┌=======================================');
-    debugPrint('|    🎉 WELCOME TO SARAS 🎉    ');
+    debugPrint('|    🎉 WELCOME TO Happy Finance 🎉    ');
     debugPrint('├=======================================');
     debugPrint('├ ✅ Bootstrap completed successfully! ');
     debugPrint('├ ✅ App is running...                 ');

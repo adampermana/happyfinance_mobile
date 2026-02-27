@@ -6,9 +6,9 @@ import 'package:happyfinance_mobile/domains/auth/login/login_response.dart';
 import 'package:happyfinance_mobile/infrastructure/auth/repositories/i_auth_repositories.dart';
 import 'package:happyfinance_mobile/infrastructure/failures/alert.dart';
 
+part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
-part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepositories) : super(AuthState.initial()) {
